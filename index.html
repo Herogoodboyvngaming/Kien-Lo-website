@@ -1,31 +1,135 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang web Kiên Lọ</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trang web Kiên Lọ - 100 Ngày Thử Thách</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Trang web Kiên Lọ</h1>
-        <p>Tạo bởi: Nguyễn Chí Dự 🇻🇳♥️🇻🇳</p>
-    </header>
+
+<!-- Modal Đăng nhập / Đăng ký / Quên mk -->
+<div id="authModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+
+    <!-- Đăng nhập -->
+    <div id="loginForm" class="auth-form">
+      <h2>ĐĂNG NHẬP</h2>
+      <form onsubmit="handleLogin(event)">
+        <label>Tên hoặc Gmail của bạn? <span class="required">*</span></label>
+        <input type="text" id="loginIdentifier" required placeholder="Tên / Gmail">
+        
+        <label>Mật khẩu của bạn? <span class="required">*</span></label>
+        <input type="password" id="loginPassword" required>
+        
+        <button type="submit">ĐĂNG NHẬP</button>
+      </form>
+      <p>Chưa có tài khoản? <a href="#" onclick="showRegister()">Đăng ký</a></p>
+      <p><a href="#" onclick="showForgot()">Quên mật khẩu?</a></p>
+    </div>
+
+    <!-- Đăng ký -->
+    <div id="registerForm" class="auth-form hidden">
+      <h2>ĐĂNG KÝ</h2>
+      <form onsubmit="handleRegister(event)">
+        <label>Tên của bạn? <span class="required">*</span></label>
+        <input type="text" id="regUsername" required placeholder="Tên hiển thị">
+        
+        <label>Gmail của bạn? <span class="required">*</span></label>
+        <input type="email" id="regEmail" required placeholder="example@gmail.com">
+        
+        <label>Mật khẩu? <span class="required">*</span></label>
+        <input type="password" id="regPassword" required minlength="6">
+        
+        <label>Xác nhận mật khẩu? <span class="required">*</span></label>
+        <input type="password" id="regConfirm" required>
+        
+        <button type="submit">ĐĂNG KÝ</button>
+      </form>
+      <p>Đã có tài khoản? <a href="#" onclick="showLogin()">Đăng nhập</a></p>
+    </div>
+
+    <!-- Quên mật khẩu (giả lập - chỉ cho nhập lại mk) -->
+    <div id="forgotForm" class="auth-form hidden">
+      <h2>QUÊN MẬT KHẨU</h2>
+      <p>Nhập thông tin để đặt lại (giả lập)</p>
+      <form onsubmit="handleForgot(event)">
+        <label>Tên đăng nhập hoặc Gmail? <span class="required">*</span></label>
+        <input type="text" id="forgotIdentifier" required>
+        
+        <label>Mật khẩu gần nhất của bạn? <span class="required">*</span></label>
+        <input type="password" id="forgotOldPass" required>
+        
+        <label>Mật khẩu mới?</label>
+        <input type="password" id="forgotNewPass" required minlength="6">
+        
+        <button type="submit">ĐẶT LẠI</button>
+      </form>
+      <p><a href="#" onclick="showLogin()">Quay lại đăng nhập</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <header>
+    <h1>TRANG WEB KIÊN LỌ</h1>
+    <div class="creator">Tạo bởi: Nguyễn Chí Dự 🇻🇳♥️🇻🇳</div>
     
-    <div id="challenge">
-        <p>Ngày kiên trì: <span id="days">0</span>/100</p>
-        <button id="startBtn">Bắt đầu Challenge</button>
-        <button id="resetBtn">Reset</button>
-        <p id="status">Hãy kiên trì không xem phim đen tối trong 100 ngày!</p>
-        <p id="locationStatus">Vị trí hiện tại: Chưa lấy (chỉ dùng để giám sát chung, không theo dõi riêng tư như tắm hoặc thay đồ).</p>
+    <div id="userInfo" class="hidden">
+      Xin chào, <span id="currentUser"></span>! 
+      <button onclick="logout()">Đăng xuất</button>
     </div>
     
-    <div id="browser">
-        <input type="text" id="urlInput" placeholder="Nhập URL để mở (sẽ được giám sát và chặn nếu đen tối)">
-        <button id="loadBtn">Mở Trang Web</button>
-        <iframe id="contentFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
-    </div>
+    <div class="days" id="daysDisplay">0</div>
+    <div class="subtitle">ngày kiên lọ thành công</div>
     
-    <script src="script.js"></script>
+    <div id="rankDisplay" class="rank-box">
+      Rank hiện tại: <span id="userRank">Khách</span>
+    </div>
+  </header>
+
+  <div class="warning-box">
+    <h2>QUY TẮC RẤT NGHIÊM KHẮC</h2>
+    <p>
+      Mục tiêu: <strong>100 ngày không xem nội dung đen tối</strong><br>
+      Vi phạm 1–2 lần → nhắc nhở<br>
+      Vi phạm lần thứ <strong>3</strong> → THẤT BẠI - ĐẶT LẠI VỀ 0 NGÀY
+    </p>
+  </div>
+
+  <!-- Màn hình thất bại -->
+  <div id="failScreen" class="hidden">
+    <div class="ban-message">
+      TẠI SAO BẠN LẠI NHẬP LIÊN KẾT ĐEN TỐI 😠<br><br>
+      BẠN ĐÃ THUA VÌ VIỆC NHẬP LIÊN KẾT ĐEN TỐI<br>
+      VUI LÒNG BẮT ĐẦU LẠI THỬ THÁCH
+    </div>
+    <button class="restart-btn" onclick="resetChallenge()">BẮT ĐẦU LẠI TỪ ĐẦU</button>
+  </div>
+
+</div>
+
+<footer>
+  Made in VN 🇻🇳♥️🇻🇳<br>
+  Made by : Nguyễn Chí Dự 🇻🇳♥️🇻🇳<br>
+  Hỗ trợ Gmail: Herogoodboymc2024@gmail.com
+</footer>
+
+<!-- Âm thanh -->
+<audio id="angrySound" preload="auto">
+  <source src="https://assets.codepen.io/12213782/angry-short.mp3" type="audio/mpeg">
+</audio>
+<audio id="failEpicSound" preload="auto">
+  <source src="https://assets.codepen.io/12213782/game-over-epic.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
 </body>
 </html>
