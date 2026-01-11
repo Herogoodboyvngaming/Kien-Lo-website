@@ -2,7 +2,6 @@
   --primary: #ff3366;
   --success: #00ff9d;
   --danger: #ff073a;
-  --overlay: rgba(10, 0, 26, 0.65);
   --text: #f8f5ff;
   --muted: #b0a8c0;
   --glow: 0 0 18px rgba(255,51,102,0.4);
@@ -15,11 +14,12 @@
 }
 
 body {
-  font-family: 'Sarabun', 'Roboto', 'Segoe UI', Arial, sans-serif;
+  font-family: 'Sarabun', 'Roboto', 'Segoe UI', Arial, sans-serif; /* Fallback tốt cho tiếng Việt */
   background: linear-gradient(135deg, #0a001f, #180033, #22004d);
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
+  line-height: 1.5;
 }
 
 .container {
@@ -82,6 +82,12 @@ h1 {
   border-color: var(--danger);
 }
 
+.auth-form h2 {
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+}
+
 .auth-form label {
   display: block;
   margin: 1.2rem 0 0.6rem;
@@ -91,7 +97,7 @@ h1 {
 
 .auth-form input {
   width: 100%;
-  padding: 0.9rem;
+  padding: 0.9rem 1rem;
   border-radius: 0.8rem;
   border: 2px solid #444466;
   background: rgba(40,30,70,0.7);
@@ -101,6 +107,7 @@ h1 {
 
 .auth-form input::placeholder {
   color: #aaa;
+  opacity: 1;
 }
 
 .auth-form button {
@@ -118,11 +125,13 @@ h1 {
 
 .auth-form button:hover {
   background: #ff4d79;
+  transform: translateY(-2px);
 }
 
 .auth-links {
   margin-top: 1.5rem;
   text-align: center;
+  font-size: 1rem;
 }
 
 .auth-links a {
@@ -156,6 +165,7 @@ h1 {
   max-width: 500px;
   width: 90%;
   box-shadow: var(--glow);
+  position: relative;
 }
 
 .close-btn {
@@ -198,9 +208,17 @@ footer {
   font-size: 1rem;
 }
 
-/* Responsive */
+/* Responsive fix layout vỡ trên mobile */
 @media (max-width: 768px) {
   header { padding: 2.5rem 1rem 1.5rem; }
   .days { font-size: clamp(3.2rem, 12vw, 5.5rem); }
   .modal-content { padding: 1.5rem; }
+  .auth-form input { font-size: 1rem; padding: 0.8rem; }
+  .auth-form label { font-size: 1rem; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 2.8rem; }
+  .ban-message { font-size: 2rem; }
+  .restart-btn { font-size: 1.2rem; padding: 0.8rem 2rem; }
 }
