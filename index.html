@@ -2,127 +2,123 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Trang web Kiên Lọ - 100 Ngày Thử Thách</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- Modal Đăng nhập / Đăng ký / Quên mk -->
+<!-- Modal Auth -->
 <div id="authModal" class="modal">
   <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <span class="close-btn" onclick="closeModal()">×</span>
 
-    <!-- Đăng nhập -->
     <div id="loginForm" class="auth-form">
       <h2>ĐĂNG NHẬP</h2>
       <form onsubmit="handleLogin(event)">
-        <label>Tên hoặc Gmail của bạn? <span class="required">*</span></label>
+        <label>Tên hoặc Gmail <span class="required">*</span></label>
         <input type="text" id="loginIdentifier" required placeholder="Tên / Gmail">
         
-        <label>Mật khẩu của bạn? <span class="required">*</span></label>
+        <label>Mật khẩu <span class="required">*</span></label>
         <input type="password" id="loginPassword" required>
         
         <button type="submit">ĐĂNG NHẬP</button>
       </form>
-      <p>Chưa có tài khoản? <a href="#" onclick="showRegister()">Đăng ký</a></p>
-      <p><a href="#" onclick="showForgot()">Quên mật khẩu?</a></p>
+      <div class="auth-links">
+        <a href="#" onclick="showRegister()">Chưa có tài khoản? Đăng ký</a><br>
+        <a href="#" onclick="showForgot()">Quên mật khẩu?</a>
+      </div>
     </div>
 
-    <!-- Đăng ký -->
     <div id="registerForm" class="auth-form hidden">
       <h2>ĐĂNG KÝ</h2>
       <form onsubmit="handleRegister(event)">
-        <label>Tên của bạn? <span class="required">*</span></label>
-        <input type="text" id="regUsername" required placeholder="Tên hiển thị">
+        <label>Tên hiển thị <span class="required">*</span></label>
+        <input type="text" id="regUsername" required>
         
-        <label>Gmail của bạn? <span class="required">*</span></label>
+        <label>Gmail <span class="required">*</span></label>
         <input type="email" id="regEmail" required placeholder="example@gmail.com">
         
-        <label>Mật khẩu? <span class="required">*</span></label>
+        <label>Mật khẩu <span class="required">*</span></label>
         <input type="password" id="regPassword" required minlength="6">
         
-        <label>Xác nhận mật khẩu? <span class="required">*</span></label>
+        <label>Xác nhận mật khẩu <span class="required">*</span></label>
         <input type="password" id="regConfirm" required>
         
         <button type="submit">ĐĂNG KÝ</button>
       </form>
-      <p>Đã có tài khoản? <a href="#" onclick="showLogin()">Đăng nhập</a></p>
+      <div class="auth-links">
+        <a href="#" onclick="showLogin()">Đã có tài khoản? Đăng nhập</a>
+      </div>
     </div>
 
-    <!-- Quên mật khẩu (giả lập - chỉ cho nhập lại mk) -->
     <div id="forgotForm" class="auth-form hidden">
       <h2>QUÊN MẬT KHẨU</h2>
-      <p>Nhập thông tin để đặt lại (giả lập)</p>
       <form onsubmit="handleForgot(event)">
-        <label>Tên đăng nhập hoặc Gmail? <span class="required">*</span></label>
+        <label>Tên hoặc Gmail <span class="required">*</span></label>
         <input type="text" id="forgotIdentifier" required>
         
-        <label>Mật khẩu gần nhất của bạn? <span class="required">*</span></label>
+        <label>Mật khẩu cũ <span class="required">*</span></label>
         <input type="password" id="forgotOldPass" required>
         
-        <label>Mật khẩu mới?</label>
+        <label>Mật khẩu mới <span class="required">*</span></label>
         <input type="password" id="forgotNewPass" required minlength="6">
         
         <button type="submit">ĐẶT LẠI</button>
       </form>
-      <p><a href="#" onclick="showLogin()">Quay lại đăng nhập</a></p>
+      <div class="auth-links">
+        <a href="#" onclick="showLogin()">Quay lại đăng nhập</a>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="container">
-
   <header>
     <h1>TRANG WEB KIÊN LỌ</h1>
     <div class="creator">Tạo bởi: Nguyễn Chí Dự 🇻🇳♥️🇻🇳</div>
     
     <div id="userInfo" class="hidden">
       Xin chào, <span id="currentUser"></span>! 
-      <button onclick="logout()">Đăng xuất</button>
+      <button class="logout-btn" onclick="logout()">Đăng xuất</button>
     </div>
     
     <div class="days" id="daysDisplay">0</div>
     <div class="subtitle">ngày kiên lọ thành công</div>
     
-    <div id="rankDisplay" class="rank-box">
-      Rank hiện tại: <span id="userRank">Khách</span>
+    <div class="rank-box" id="rankDisplay">
+      Rank: <span id="userRank">Khách</span>
     </div>
   </header>
 
   <div class="warning-box">
-    <h2>QUY TẮC RẤT NGHIÊM KHẮC</h2>
-    <p>
-      Mục tiêu: <strong>100 ngày không xem nội dung đen tối</strong><br>
+    <h2>QUY TẮC NGHIÊM KHẮC</h2>
+    <p>Mục tiêu: <strong>100 ngày</strong> không xem nội dung đen tối<br>
       Vi phạm 1–2 lần → nhắc nhở<br>
-      Vi phạm lần thứ <strong>3</strong> → THẤT BẠI - ĐẶT LẠI VỀ 0 NGÀY
-    </p>
+      Lần thứ <strong>3</strong> → THẤT BẠI, RESET VỀ 0</p>
   </div>
 
-  <!-- Màn hình thất bại -->
-  <div id="failScreen" class="hidden">
+  <div id="failScreen" class="hidden fail-screen">
     <div class="ban-message">
       TẠI SAO BẠN LẠI NHẬP LIÊN KẾT ĐEN TỐI 😠<br><br>
-      BẠN ĐÃ THUA VÌ VIỆC NHẬP LIÊN KẾT ĐEN TỐI<br>
-      VUI LÒNG BẮT ĐẦU LẠI THỬ THÁCH
+      BẠN ĐÃ THUA!<br>
+      BẮT ĐẦU LẠI THỬ THÁCH
     </div>
-    <button class="restart-btn" onclick="resetChallenge()">BẮT ĐẦU LẠI TỪ ĐẦU</button>
+    <button class="restart-btn" onclick="resetChallenge()">BẮT ĐẦU LẠI</button>
   </div>
-
 </div>
 
 <footer>
-  Made in VN 🇻🇳♥️🇻🇳<br>
-  Made by : Nguyễn Chí Dự 🇻🇳♥️🇻🇳<br>
-  Hỗ trợ Gmail: Herogoodboymc2024@gmail.com
+  Made in Việt Nam 🇻🇳♥️🇻🇳<br>
+  Made by: Nguyễn Chí Dự 🇻🇳♥️🇻🇳<br>
+  Hỗ trợ: Herogoodboymc2024@gmail.com
 </footer>
 
-<!-- Âm thanh -->
 <audio id="angrySound" preload="auto">
   <source src="https://assets.codepen.io/12213782/angry-short.mp3" type="audio/mpeg">
 </audio>
