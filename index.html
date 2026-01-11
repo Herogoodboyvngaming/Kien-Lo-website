@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang web Kiên Lọ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Trang web Kiên Lọ</h1>
+        <p>Tạo bởi: Nguyễn Chí Dự 🇻🇳♥️🇻🇳</p>
+    </header>
+    
+    <div id="challenge">
+        <p>Ngày kiên trì: <span id="days">0</span>/100</p>
+        <button id="startBtn">Bắt đầu Challenge</button>
+        <button id="resetBtn">Reset</button>
+        <p id="status">Hãy kiên trì không xem phim đen tối trong 100 ngày!</p>
+    </div>
+    
+    <div id="browser">
+        <input type="text" id="urlInput" placeholder="Nhập URL để mở (sẽ được giám sát và chặn nếu đen tối)">
+        <button id="loadBtn">Mở Trang Web</button>
+        <iframe id="contentFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
