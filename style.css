@@ -1,10 +1,8 @@
-/* TRANG WEB KIÊN LỌ - BACKGROUND ĐẸP, RESIZE MƯỢT, KHÔNG LAG MOBILE 2026 */
-
 :root {
   --primary: #ff3366;
   --success: #00ff9d;
   --danger: #ff073a;
-  --overlay: rgba(10, 0, 26, 0.65); /* Độ tối overlay - giảm xuống 0.5 nếu muốn sáng hơn */
+  --overlay: rgba(10, 0, 26, 0.65);
   --text: #f8f5ff;
   --muted: #b0a8c0;
   --glow: 0 0 18px rgba(255,51,102,0.4);
@@ -16,38 +14,18 @@
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-  width: 100%;
-  overflow-x: hidden;
-}
-
 body {
-  font-family: 'Sarabun', system-ui, sans-serif;
+  font-family: 'Sarabun', 'Roboto', 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #0a001f, #180033, #22004d);
   color: var(--text);
-  background: url('https://thumbs.dreamstime.com/b/abstract-neon-wave-background-bright-glowing-lines-dots-futuristic-digital-art-design-vibrant-purple-pink-blue-gradient-385666117.jpg') no-repeat center center;
-  background-size: cover; /* Resize full màn hình */
-  background-position: center;
-  background-attachment: scroll; /* Scroll thay vì fixed để tránh bug mobile */
-  min-height: 100vh; /* Đảm bảo full height viewport */
-}
-
-/* Overlay tối nhẹ cho chữ nổi bật */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: var(--overlay);
-  pointer-events: none;
-  z-index: -1;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 1rem;
-  position: relative;
-  z-index: 1;
 }
 
 header {
@@ -63,7 +41,6 @@ h1 {
   font-weight: 900;
   color: var(--primary);
   text-shadow: var(--glow);
-  letter-spacing: 2px;
   margin-bottom: 0.5rem;
 }
 
@@ -105,47 +82,113 @@ h1 {
   border-color: var(--danger);
 }
 
-.fail-screen {
-  text-align: center;
-  padding: 3rem 1rem;
+.auth-form label {
+  display: block;
+  margin: 1.2rem 0 0.6rem;
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
-.ban-message {
-  font-size: clamp(1.8rem, 6vw, 2.8rem);
-  font-weight: 900;
+.auth-form input {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 0.8rem;
+  border: 2px solid #444466;
+  background: rgba(40,30,70,0.7);
+  color: white;
+  font-size: 1.1rem;
+}
+
+.auth-form input::placeholder {
+  color: #aaa;
+}
+
+.auth-form button {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.auth-form button:hover {
+  background: #ff4d79;
+}
+
+.auth-links {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.auth-links a {
+  color: #66d9ff;
+  text-decoration: none;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+.required {
   color: var(--danger);
-  text-shadow: 0 0 25px var(--danger);
 }
 
 .modal {
+  position: fixed;
+  inset: 0;
   background: rgba(10, 0, 26, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
 .modal-content {
   background: rgba(30, 10, 70, 0.45);
   border: 2px solid var(--primary);
   border-radius: 1.2rem;
-  box-shadow: var(--glow);
-  padding: 1.8rem;
-  max-width: 480px;
+  padding: 2rem;
+  max-width: 500px;
   width: 90%;
+  box-shadow: var(--glow);
 }
 
-.restart-btn, .auth-form button {
-  background: var(--primary);
+.close-btn {
+  position: absolute;
+  right: 1.5rem;
+  top: 1rem;
+  font-size: 2.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+.fail-screen {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.ban-message {
+  font-size: clamp(2rem, 7vw, 3rem);
+  font-weight: 900;
+  color: var(--danger);
+  text-shadow: 0 0 25px var(--danger);
+}
+
+.restart-btn {
+  margin-top: 2rem;
+  padding: 1rem 3rem;
+  background: var(--danger);
   color: white;
   border: none;
-  padding: 0.9rem 2rem;
-  font-size: 1.1rem;
   border-radius: 999px;
+  font-size: 1.4rem;
   cursor: pointer;
   box-shadow: var(--glow);
-  transition: all 0.3s;
-}
-
-.restart-btn:hover, .auth-form button:hover {
-  background: #ff4d79;
-  transform: translateY(-3px);
 }
 
 footer {
@@ -155,14 +198,9 @@ footer {
   font-size: 1rem;
 }
 
-/* Responsive tối ưu */
+/* Responsive */
 @media (max-width: 768px) {
   header { padding: 2.5rem 1rem 1.5rem; }
   .days { font-size: clamp(3.2rem, 12vw, 5.5rem); }
   .modal-content { padding: 1.5rem; }
-}
-
-@media (max-width: 480px) {
-  h1 { font-size: 2.8rem; }
-  .ban-message { font-size: 2rem; }
 }
