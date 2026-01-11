@@ -2,10 +2,10 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Trang web Kiên Lọ - 100 Ngày Thử Thách</title>
   
-  <!-- Font Sarabun với fallback tốt + display=swap để tránh layout shift -->
+  <!-- Font Sarabun + Roboto fallback tốt cho tiếng Việt, display=swap để tránh vỡ layout -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -14,7 +14,6 @@
 </head>
 <body>
 
-<!-- Modal Auth (giữ nguyên) -->
 <div id="authModal" class="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeModal()">×</span>
@@ -23,11 +22,11 @@
       <h2>ĐĂNG NHẬP</h2>
       <form onsubmit="handleLogin(event)">
         <label>Tên hoặc Gmail <span class="required">*</span></label>
-        <input type="text" id="loginIdentifier" required placeholder="Tên / Gmail">
-        
+        <input type="text" id="loginIdentifier" required placeholder="Nhập tên hoặc Gmail">
+
         <label>Mật khẩu <span class="required">*</span></label>
-        <input type="password" id="loginPassword" required placeholder="Mật khẩu">
-        
+        <input type="password" id="loginPassword" required placeholder="Nhập mật khẩu">
+
         <button type="submit">ĐĂNG NHẬP</button>
       </form>
       <div class="auth-links">
@@ -40,17 +39,17 @@
       <h2>ĐĂNG KÝ</h2>
       <form onsubmit="handleRegister(event)">
         <label>Tên hiển thị <span class="required">*</span></label>
-        <input type="text" id="regUsername" required placeholder="Tên hiển thị">
-        
+        <input type="text" id="regUsername" required placeholder="Tên bạn muốn hiển thị">
+
         <label>Gmail <span class="required">*</span></label>
-        <input type="email" id="regEmail" required placeholder="example@gmail.com">
-        
+        <input type="email" id="regEmail" required placeholder="Ví dụ: example@gmail.com">
+
         <label>Mật khẩu <span class="required">*</span></label>
-        <input type="password" id="regPassword" required minlength="6" placeholder="Mật khẩu (tối thiểu 6 ký tự)">
-        
+        <input type="password" id="regPassword" required minlength="6" placeholder="Mật khẩu (ít nhất 6 ký tự)">
+
         <label>Xác nhận mật khẩu <span class="required">*</span></label>
-        <input type="password" id="regConfirm" required placeholder="Xác nhận mật khẩu">
-        
+        <input type="password" id="regConfirm" required placeholder="Nhập lại mật khẩu">
+
         <button type="submit">ĐĂNG KÝ</button>
       </form>
       <div class="auth-links">
@@ -62,14 +61,14 @@
       <h2>QUÊN MẬT KHẨU</h2>
       <form onsubmit="handleForgot(event)">
         <label>Tên hoặc Gmail <span class="required">*</span></label>
-        <input type="text" id="forgotIdentifier" required placeholder="Tên / Gmail">
-        
+        <input type="text" id="forgotIdentifier" required placeholder="Nhập tên hoặc Gmail">
+
         <label>Mật khẩu cũ <span class="required">*</span></label>
-        <input type="password" id="forgotOldPass" required placeholder="Mật khẩu cũ">
-        
+        <input type="password" id="forgotOldPass" required placeholder="Nhập mật khẩu cũ">
+
         <label>Mật khẩu mới <span class="required">*</span></label>
-        <input type="password" id="forgotNewPass" required minlength="6" placeholder="Mật khẩu mới">
-        
+        <input type="password" id="forgotNewPass" required minlength="6" placeholder="Nhập mật khẩu mới">
+
         <button type="submit">ĐẶT LẠI</button>
       </form>
       <div class="auth-links">
