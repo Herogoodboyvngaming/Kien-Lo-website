@@ -1,17 +1,13 @@
-/* ==========================================================================
-   TRANG WEB KIÊN LỌ - BACKGROUND NHẸ, ĐẸP, FAST LOAD 2026
-   Neon dark subtle, no heavy animation, responsive max
-   ========================================================================== */
+/* TRANG WEB KIÊN LỌ - BACKGROUND NHẸ NHẤT, ĐẸP, FAST LOAD 2026 */
 
 :root {
-  --primary: #ff3366;           /* Hồng neon */
-  --primary-glow: #ff4d79;
-  --success: #00ff9d;           /* Xanh thành công */
+  --primary: #ff3366;
+  --success: #00ff9d;
   --danger: #ff073a;
-  --bg-base: #0a001f;           /* Dark tím đen base */
+  --bg: #0a001f;
   --text: #f5f0ff;
   --text-muted: #b0a8c8;
-  --glow: 0 0 25px rgba(255,51,102,0.5);
+  --glow: 0 0 20px rgba(255,51,102,0.4);
 }
 
 * {
@@ -25,117 +21,97 @@ body {
   min-height: 100vh;
   background: linear-gradient(135deg, #0a001f, #180033, #22004d);
   color: var(--text);
-  position: relative;
   overflow-x: hidden;
 }
 
-/* Subtle static overlay glow - nhẹ, không animate nặng */
+/* Overlay glow nhẹ - không nặng */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at 30% 40%, rgba(255,51,102,0.08) 0%, transparent 50%),
-              radial-gradient(circle at 70% 60%, rgba(0,255,157,0.06) 0%, transparent 50%);
+  background: radial-gradient(circle at 30% 40%, rgba(255,51,102,0.05) 0%, transparent 60%);
   pointer-events: none;
   z-index: -1;
 }
 
-/* Container */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 1.5rem;
-  position: relative;
-  z-index: 1;
 }
 
-/* Header - glassmorphism nhẹ */
+/* Header - bỏ blur, dùng opacity + shadow nhẹ */
 header {
   text-align: center;
   padding: 4rem 1rem 2.5rem;
-  background: rgba(25, 5, 60, 0.4);
-  backdrop-filter: blur(12px); /* Glass effect mượt, nhẹ */
-  border-radius: 0 0 2.5rem 2.5rem;
-  border-bottom: 4px solid var(--primary);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  background: rgba(25, 5, 60, 0.35);
+  border-radius: 0 0 2rem 2rem;
+  border-bottom: 3px solid var(--primary);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
 }
 
 h1 {
-  font-size: clamp(3rem, 9vw, 5.5rem);
+  font-size: clamp(2.8rem, 8vw, 5rem);
   font-weight: 900;
   color: var(--primary);
   text-shadow: var(--glow);
-  letter-spacing: 3px;
-  margin-bottom: 0.6rem;
+  letter-spacing: 2px;
 }
 
 .days {
-  font-size: clamp(5rem, 18vw, 9rem);
+  font-size: clamp(4.5rem, 15vw, 8rem); /* Giảm size để nhẹ hơn */
   font-weight: 900;
   color: white;
-  text-shadow: 0 0 40px currentColor;
+  text-shadow: 0 0 30px currentColor;
   margin: 1rem 0;
-  transition: all 0.4s ease;
 }
 
 .days.success {
   color: var(--success);
-  text-shadow: 0 0 50px var(--success);
+  text-shadow: 0 0 40px var(--success);
 }
 
-/* Rank & Warning - glass nhẹ */
+/* Rank & Warning - bỏ blur hoàn toàn */
 .rank-box, .warning-box {
-  background: rgba(0,255,157,0.12);
+  background: rgba(0,255,157,0.08);
   border: 2px solid var(--success);
-  border-radius: 1.5rem;
-  padding: 1.2rem;
-  margin: 2rem auto;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 20px rgba(0,255,157,0.25);
+  border-radius: 1.2rem;
+  padding: 1rem;
+  margin: 1.8rem auto;
   text-align: center;
   max-width: 800px;
+  box-shadow: 0 0 15px rgba(0,255,157,0.2);
 }
 
 .warning-box {
-  background: rgba(255,7,58,0.12);
+  background: rgba(255,7,58,0.08);
   border-color: var(--danger);
-  box-shadow: 0 0 20px rgba(255,7,58,0.25);
+  box-shadow: 0 0 15px rgba(255,7,58,0.2);
 }
 
 /* Fail screen */
 .ban-message {
-  font-size: clamp(2.2rem, 7vw, 3.5rem);
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 900;
   color: var(--danger);
-  text-shadow: 0 0 40px var(--danger);
-  animation: flash 1.6s infinite alternate;
+  text-shadow: 0 0 30px var(--danger);
 }
 
-@keyframes flash {
-  from { opacity: 0.6; }
-  to   { opacity: 1; }
-}
-
-/* Modal - glassmorphism tối ưu */
+/* Modal - giữ blur nhẹ ở đây thôi */
 .modal {
-  background: rgba(10,0,31,0.85);
-  backdrop-filter: blur(12px);
+  background: rgba(10,0,31,0.8);
 }
 
 .modal-content {
-  background: rgba(25,5,60,0.5);
-  border: 3px solid var(--primary);
-  border-radius: 1.8rem;
-  backdrop-filter: blur(16px);
+  background: rgba(25,5,60,0.45);
+  border: 2px solid var(--primary);
+  border-radius: 1.5rem;
   box-shadow: var(--glow);
+  backdrop-filter: blur(8px); /* Giữ 1 chỗ duy nhất để vẫn đẹp */
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   header { padding: 3rem 1rem 2rem; }
-  .days { font-size: clamp(4rem, 16vw, 7rem); }
-}
-
-@media (max-width: 480px) {
-  .ban-message { font-size: 2rem; }
+  .days { font-size: clamp(3.5rem, 14vw, 6rem); }
 }
