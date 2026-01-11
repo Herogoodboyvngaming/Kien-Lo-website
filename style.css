@@ -1,10 +1,10 @@
-/* TRANG WEB KIÊN LỌ - BACKGROUND ĐẸP, NHẸ, RESIZE HOÀN HẢO 2026 */
+/* TRANG WEB KIÊN LỌ - BACKGROUND ĐẸP, RESIZE MƯỢT, KHÔNG LAG MOBILE 2026 */
 
 :root {
-  --primary: #ff3366;        /* Hồng neon */
-  --success: #00ff9d;        /* Xanh neon thành công */
-  --danger: #ff073a;         /* Đỏ cảnh báo */
-  --overlay: rgba(10, 0, 26, 0.65); /* Lớp tối nhẹ cho chữ nổi */
+  --primary: #ff3366;
+  --success: #00ff9d;
+  --danger: #ff073a;
+  --overlay: rgba(10, 0, 26, 0.65); /* Độ tối overlay - giảm xuống 0.5 nếu muốn sáng hơn */
   --text: #f8f5ff;
   --muted: #b0a8c0;
   --glow: 0 0 18px rgba(255,51,102,0.4);
@@ -16,18 +16,23 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'Sarabun', system-ui, sans-serif;
-  min-height: 100vh;
-  color: var(--text);
-  background: url('https://thumbs.dreamstime.com/b/abstract-neon-wave-background-bright-glowing-lines-dots-futuristic-digital-art-design-vibrant-purple-pink-blue-gradient-385666117.jpg') no-repeat center center fixed;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+html, body {
+  height: 100%;
+  width: 100%;
   overflow-x: hidden;
 }
 
-/* Lớp overlay tối để chữ dễ đọc, không làm nặng */
+body {
+  font-family: 'Sarabun', system-ui, sans-serif;
+  color: var(--text);
+  background: url('https://thumbs.dreamstime.com/b/abstract-neon-wave-background-bright-glowing-lines-dots-futuristic-digital-art-design-vibrant-purple-pink-blue-gradient-385666117.jpg') no-repeat center center;
+  background-size: cover; /* Resize full màn hình */
+  background-position: center;
+  background-attachment: scroll; /* Scroll thay vì fixed để tránh bug mobile */
+  min-height: 100vh; /* Đảm bảo full height viewport */
+}
+
+/* Overlay tối nhẹ cho chữ nổi bật */
 body::after {
   content: "";
   position: fixed;
@@ -150,7 +155,7 @@ footer {
   font-size: 1rem;
 }
 
-/* Responsive hoàn hảo */
+/* Responsive tối ưu */
 @media (max-width: 768px) {
   header { padding: 2.5rem 1rem 1.5rem; }
   .days { font-size: clamp(3.2rem, 12vw, 5.5rem); }
