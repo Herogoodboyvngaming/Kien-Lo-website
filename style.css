@@ -14,7 +14,7 @@
 }
 
 body {
-  font-family: 'Sarabun', 'Roboto', 'Segoe UI', Arial, sans-serif; /* Fallback tốt cho tiếng Việt */
+  font-family: 'Sarabun', 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
   background: linear-gradient(135deg, #0a001f, #180033, #22004d);
   color: var(--text);
   min-height: 100vh;
@@ -82,6 +82,44 @@ h1 {
   border-color: var(--danger);
 }
 
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 0, 26, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: rgba(30, 10, 70, 0.45);
+  border: 2px solid var(--primary);
+  border-radius: 1.2rem;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: var(--glow);
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  right: 1.5rem;
+  top: 1rem;
+  font-size: 2.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+.auth-form {
+  display: none;
+}
+
+.auth-form.active {
+  display: block;
+}
+
 .auth-form h2 {
   text-align: center;
   color: var(--primary);
@@ -125,7 +163,6 @@ h1 {
 
 .auth-form button:hover {
   background: #ff4d79;
-  transform: translateY(-2px);
 }
 
 .auth-links {
@@ -145,36 +182,6 @@ h1 {
 
 .required {
   color: var(--danger);
-}
-
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(10, 0, 26, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: rgba(30, 10, 70, 0.45);
-  border: 2px solid var(--primary);
-  border-radius: 1.2rem;
-  padding: 2rem;
-  max-width: 500px;
-  width: 90%;
-  box-shadow: var(--glow);
-  position: relative;
-}
-
-.close-btn {
-  position: absolute;
-  right: 1.5rem;
-  top: 1rem;
-  font-size: 2.5rem;
-  color: white;
-  cursor: pointer;
 }
 
 .fail-screen {
@@ -208,13 +215,12 @@ footer {
   font-size: 1rem;
 }
 
-/* Responsive fix layout vỡ trên mobile */
+/* Responsive */
 @media (max-width: 768px) {
   header { padding: 2.5rem 1rem 1.5rem; }
   .days { font-size: clamp(3.2rem, 12vw, 5.5rem); }
   .modal-content { padding: 1.5rem; }
-  .auth-form input { font-size: 1rem; padding: 0.8rem; }
-  .auth-form label { font-size: 1rem; }
+  .auth-form input, .auth-form label { font-size: 1rem; padding: 0.8rem; }
 }
 
 @media (max-width: 480px) {
