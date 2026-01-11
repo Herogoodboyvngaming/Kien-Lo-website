@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Trang web Kiên Lọ - 100 Ngày Thử Thách</title>
   
-  <!-- Font Sarabun + Roboto fallback tốt cho tiếng Việt, display=swap để tránh vỡ layout -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -22,10 +21,10 @@
       <h2>ĐĂNG NHẬP</h2>
       <form onsubmit="handleLogin(event)">
         <label>Tên hoặc Gmail <span class="required">*</span></label>
-        <input type="text" id="loginIdentifier" required placeholder="Nhập tên hoặc Gmail">
+        <input type="text" id="loginIdentifier" required placeholder="Tên hoặc Gmail">
 
         <label>Mật khẩu <span class="required">*</span></label>
-        <input type="password" id="loginPassword" required placeholder="Nhập mật khẩu">
+        <input type="password" id="loginPassword" required placeholder="Mật khẩu">
 
         <button type="submit">ĐĂNG NHẬP</button>
       </form>
@@ -39,13 +38,13 @@
       <h2>ĐĂNG KÝ</h2>
       <form onsubmit="handleRegister(event)">
         <label>Tên hiển thị <span class="required">*</span></label>
-        <input type="text" id="regUsername" required placeholder="Tên bạn muốn hiển thị">
+        <input type="text" id="regUsername" required placeholder="Tên hiển thị">
 
         <label>Gmail <span class="required">*</span></label>
-        <input type="email" id="regEmail" required placeholder="Ví dụ: example@gmail.com">
+        <input type="email" id="regEmail" required placeholder="example@gmail.com">
 
         <label>Mật khẩu <span class="required">*</span></label>
-        <input type="password" id="regPassword" required minlength="6" placeholder="Mật khẩu (ít nhất 6 ký tự)">
+        <input type="password" id="regPassword" required minlength="6" placeholder="Mật khẩu (≥6 ký tự)">
 
         <label>Xác nhận mật khẩu <span class="required">*</span></label>
         <input type="password" id="regConfirm" required placeholder="Nhập lại mật khẩu">
@@ -61,13 +60,13 @@
       <h2>QUÊN MẬT KHẨU</h2>
       <form onsubmit="handleForgot(event)">
         <label>Tên hoặc Gmail <span class="required">*</span></label>
-        <input type="text" id="forgotIdentifier" required placeholder="Nhập tên hoặc Gmail">
+        <input type="text" id="forgotIdentifier" required placeholder="Tên hoặc Gmail">
 
         <label>Mật khẩu cũ <span class="required">*</span></label>
-        <input type="password" id="forgotOldPass" required placeholder="Nhập mật khẩu cũ">
+        <input type="password" id="forgotOldPass" required placeholder="Mật khẩu cũ">
 
         <label>Mật khẩu mới <span class="required">*</span></label>
-        <input type="password" id="forgotNewPass" required minlength="6" placeholder="Nhập mật khẩu mới">
+        <input type="password" id="forgotNewPass" required minlength="6" placeholder="Mật khẩu mới">
 
         <button type="submit">ĐẶT LẠI</button>
       </form>
@@ -85,13 +84,13 @@
     
     <div id="userInfo" class="hidden">
       Xin chào, <span id="currentUser"></span>! 
-      <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+      <button onclick="logout()">Đăng xuất</button>
     </div>
     
     <div class="days" id="daysDisplay">0</div>
     <div class="subtitle">ngày kiên lọ thành công</div>
     
-    <div class="rank-box" id="rankDisplay">
+    <div class="rank-box">
       Rank: <span id="userRank">Khách</span>
     </div>
   </header>
@@ -103,7 +102,7 @@
       Lần thứ <strong>3</strong> → THẤT BẠI, RESET VỀ 0</p>
   </div>
 
-  <div id="failScreen" class="hidden fail-screen">
+  <div id="failScreen" class="hidden">
     <div class="ban-message">
       TẠI SAO BẠN LẠI NHẬP LIÊN KẾT ĐEN TỐI 😠<br><br>
       BẠN ĐÃ THUA!<br>
@@ -114,7 +113,7 @@
 </div>
 
 <footer>
-  Made in Việt Nam 🇻🇳♥️🇻🇳<br>
+  Made in VN 🇻🇳♥️🇻🇳<br>
   Made by: Nguyễn Chí Dự 🇻🇳♥️🇻🇳<br>
   Hỗ trợ: Herogoodboymc2024@gmail.com
 </footer>
