@@ -1,91 +1,298 @@
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-    margin: 0;
-    padding: 20px;
-    color: #333;
+/* ==========================================================================
+   TRANG WEB KIÊN LỌ - 100 NGÀY THỬ THÁCH
+   Phong cách hiện đại, tối giản, dark theme + neon accent
+   Tạo bởi: Nguyễn Chí Dự 🇻🇳♥️🇻🇳
+   ========================================================================== */
+
+:root {
+  --primary: #ff3366;           /* Màu hồng đỏ chủ đạo - năng lượng mạnh */
+  --primary-dark: #d00000;
+  --success: #00ff9d;           /* Màu xanh neon khi đạt rank cao */
+  --warning: #ffbe0b;
+  --danger: #ff073a;
+  --bg-primary: #0a001f;
+  --bg-secondary: #12002e;
+  --card-bg: rgba(20, 0, 50, 0.65);
+  --text: #f0f4ff;
+  --text-muted: #a0a8c0;
+  --border: rgba(255, 51, 102, 0.25);
+  --glow-primary: 0 0 25px rgba(255, 51, 102, 0.6);
+  --glow-success: 0 0 30px rgba(0, 255, 157, 0.5);
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Sarabun', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, var(--bg-primary), #1a0033, var(--bg-secondary));
+  color: var(--text);
+  min-height: 100vh;
+  background-attachment: fixed;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Container chính */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Header */
 header {
-    text-align: center;
-    padding: 20px;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 5rem 1rem 3rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 0 0 2.5rem 2.5rem;
+  border-bottom: 3px solid var(--primary);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
 h1 {
-    margin: 0;
-    font-size: 2.5em;
+  font-size: clamp(2.8rem, 8vw, 5rem);
+  font-weight: 900;
+  color: var(--primary);
+  text-shadow: var(--glow-primary);
+  letter-spacing: 3px;
+  margin-bottom: 0.8rem;
+  animation: subtle-pulse 4s infinite alternate;
 }
 
-#challenge {
-    text-align: center;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+.creator {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
 }
 
-#challenge p {
-    font-size: 1.2em;
+.days {
+  font-size: clamp(5rem, 15vw, 9rem);
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 0 40px currentColor;
+  margin: 1.5rem 0;
+  transition: all 0.6s ease;
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s;
+.days.success {
+  color: var(--success);
+  text-shadow: var(--glow-success);
 }
 
-button:hover {
-    background-color: #45a049;
+.subtitle {
+  font-size: 1.8rem;
+  opacity: 0.9;
+  font-weight: 600;
 }
 
-#browser {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Rank box */
+.rank-box {
+  background: rgba(0, 255, 157, 0.12);
+  border: 2px solid var(--success);
+  border-radius: 1.2rem;
+  padding: 1.2rem 2rem;
+  margin: 2rem auto;
+  max-width: 700px;
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(0, 255, 157, 0.25);
+  backdrop-filter: blur(8px);
 }
 
-#urlInput {
-    width: 70%;
-    padding: 10px;
-    font-size: 1em;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+/* Warning box */
+.warning-box {
+  background: rgba(255, 7, 58, 0.12);
+  border: 2px solid var(--danger);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  margin: 2.5rem auto;
+  max-width: 900px;
+  backdrop-filter: blur(12px);
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(255, 7, 58, 0.2);
 }
 
-#loadBtn {
-    width: 25%;
+.warning-box h2 {
+  color: var(--warning);
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
 }
 
-#contentFrame {
-    width: 100%;
-    height: 500px;
-    border: 1px solid #ddd;
-    margin-top: 20px;
-    border-radius: 5px;
+.warning-box p {
+  font-size: 1.35rem;
+  line-height: 1.7;
 }
 
-#status {
-    font-weight: bold;
-    color: #FF5722;
+/* Fail screen */
+.ban-message {
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-weight: 900;
+  color: var(--danger);
+  text-shadow: 0 0 30px currentColor;
+  animation: flash-danger 1.3s infinite alternate;
+  line-height: 1.4;
+  margin: 3rem 0 2rem;
+  letter-spacing: 1px;
 }
 
-#locationStatus {
-    font-size: 0.9em;
-    color: #666;
-    margin-top: 10px;
+@keyframes flash-danger {
+  from { opacity: 0.4; text-shadow: 0 0 15px var(--danger); }
+  to   { opacity: 1;   text-shadow: 0 0 60px var(--danger), 0 0 100px rgba(255,7,58,0.4); }
+}
+
+.restart-btn {
+  background: linear-gradient(45deg, var(--primary-dark), var(--danger));
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 999px;
+  cursor: pointer;
+  margin-top: 2rem;
+  transition: all 0.4s ease;
+  box-shadow: 0 12px 35px rgba(208, 0, 0, 0.5);
+}
+
+.restart-btn:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 20px 50px rgba(208, 0, 0, 0.7);
+  background: linear-gradient(45deg, var(--danger), var(--primary));
+}
+
+/* Modal Auth */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 0, 31, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  border: 2px solid var(--primary);
+  border-radius: 1.5rem;
+  width: 90%;
+  max-width: 500px;
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: var(--glow-primary), 0 20px 60px rgba(0,0,0,0.7);
+  backdrop-filter: blur(15px);
+}
+
+.close-btn {
+  position: absolute;
+  right: 1.5rem;
+  top: 1rem;
+  font-size: 2.5rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-btn:hover {
+  color: var(--primary);
+}
+
+/* Form styles */
+.auth-form h2 {
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  text-shadow: 0 0 15px rgba(255,51,102,0.5);
+}
+
+.auth-form label {
+  display: block;
+  margin: 1rem 0 0.5rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  border-radius: 0.8rem;
+  border: 1.5px solid #444466;
+  background: rgba(30, 20, 60, 0.7);
+  color: white;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 15px rgba(255,51,102,0.4);
+}
+
+.auth-form button {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 1rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-radius: 999px;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.auth-form button:hover {
+  background: #ff4d79;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(255,51,102,0.5);
+}
+
+.auth-form a {
+  color: #66d9ff;
+  text-decoration: none;
+}
+
+.auth-form a:hover {
+  text-decoration: underline;
+  color: #4cc9f0;
+}
+
+.required {
+  color: var(--danger);
+  font-size: 0.95rem;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 5rem 1rem 3rem;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin-top: 6rem;
+}
+
+/* Animation nhỏ */
+@keyframes subtle-pulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.02); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  header { padding: 4rem 1rem 2.5rem; }
+  h1     { font-size: 3.8rem; }
+  .days  { font-size: 6rem; }
+  .ban-message { font-size: 2.2rem; }
+  .modal-content { padding: 2rem; }
 }
