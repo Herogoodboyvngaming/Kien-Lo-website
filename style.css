@@ -1,13 +1,13 @@
-/* TRANG WEB KIÊN LỌ - BACKGROUND NHẸ NHẤT, ĐẸP, FAST LOAD 2026 */
+/* TRANG WEB KIÊN LỌ - BACKGROUND ĐẸP, NHẸ, RESIZE HOÀN HẢO 2026 */
 
 :root {
-  --primary: #ff3366;
-  --success: #00ff9d;
-  --danger: #ff073a;
-  --bg: #0a001f;
-  --text: #f5f0ff;
-  --text-muted: #b0a8c8;
-  --glow: 0 0 20px rgba(255,51,102,0.4);
+  --primary: #ff3366;        /* Hồng neon */
+  --success: #00ff9d;        /* Xanh neon thành công */
+  --danger: #ff073a;         /* Đỏ cảnh báo */
+  --overlay: rgba(10, 0, 26, 0.65); /* Lớp tối nhẹ cho chữ nổi */
+  --text: #f8f5ff;
+  --muted: #b0a8c0;
+  --glow: 0 0 18px rgba(255,51,102,0.4);
 }
 
 * {
@@ -19,99 +19,145 @@
 body {
   font-family: 'Sarabun', system-ui, sans-serif;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0a001f, #180033, #22004d);
   color: var(--text);
+  background: url('https://thumbs.dreamstime.com/b/abstract-neon-wave-background-bright-glowing-lines-dots-futuristic-digital-art-design-vibrant-purple-pink-blue-gradient-385666117.jpg') no-repeat center center fixed;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   overflow-x: hidden;
 }
 
-/* Overlay glow nhẹ - không nặng */
-body::before {
+/* Lớp overlay tối để chữ dễ đọc, không làm nặng */
+body::after {
   content: "";
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at 30% 40%, rgba(255,51,102,0.05) 0%, transparent 60%);
+  background: var(--overlay);
   pointer-events: none;
   z-index: -1;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
-/* Header - bỏ blur, dùng opacity + shadow nhẹ */
 header {
   text-align: center;
-  padding: 4rem 1rem 2.5rem;
-  background: rgba(25, 5, 60, 0.35);
-  border-radius: 0 0 2rem 2rem;
+  padding: 3rem 1rem 2rem;
+  background: rgba(30, 10, 70, 0.35);
   border-bottom: 3px solid var(--primary);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  border-radius: 0 0 2rem 2rem;
 }
 
 h1 {
-  font-size: clamp(2.8rem, 8vw, 5rem);
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
   font-weight: 900;
   color: var(--primary);
   text-shadow: var(--glow);
   letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+}
+
+.creator {
+  font-size: clamp(1rem, 4vw, 1.3rem);
+  color: var(--muted);
+  margin-bottom: 1rem;
 }
 
 .days {
-  font-size: clamp(4.5rem, 15vw, 8rem); /* Giảm size để nhẹ hơn */
+  font-size: clamp(4rem, 14vw, 7rem);
   font-weight: 900;
   color: white;
-  text-shadow: 0 0 30px currentColor;
-  margin: 1rem 0;
+  text-shadow: 0 0 25px currentColor;
+  margin: 0.8rem 0;
 }
 
 .days.success {
   color: var(--success);
-  text-shadow: 0 0 40px var(--success);
+  text-shadow: 0 0 35px var(--success);
 }
 
-/* Rank & Warning - bỏ blur hoàn toàn */
+.subtitle {
+  font-size: clamp(1.1rem, 4vw, 1.4rem);
+  opacity: 0.9;
+}
+
 .rank-box, .warning-box {
-  background: rgba(0,255,157,0.08);
+  background: rgba(30, 10, 70, 0.4);
   border: 2px solid var(--success);
-  border-radius: 1.2rem;
+  border-radius: 1rem;
   padding: 1rem;
-  margin: 1.8rem auto;
+  margin: 1.5rem auto;
   text-align: center;
   max-width: 800px;
-  box-shadow: 0 0 15px rgba(0,255,157,0.2);
 }
 
 .warning-box {
-  background: rgba(255,7,58,0.08);
   border-color: var(--danger);
-  box-shadow: 0 0 15px rgba(255,7,58,0.2);
 }
 
-/* Fail screen */
+.fail-screen {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
 .ban-message {
-  font-size: clamp(2rem, 6vw, 3rem);
+  font-size: clamp(1.8rem, 6vw, 2.8rem);
   font-weight: 900;
   color: var(--danger);
-  text-shadow: 0 0 30px var(--danger);
+  text-shadow: 0 0 25px var(--danger);
 }
 
-/* Modal - giữ blur nhẹ ở đây thôi */
 .modal {
-  background: rgba(10,0,31,0.8);
+  background: rgba(10, 0, 26, 0.9);
 }
 
 .modal-content {
-  background: rgba(25,5,60,0.45);
+  background: rgba(30, 10, 70, 0.45);
   border: 2px solid var(--primary);
-  border-radius: 1.5rem;
+  border-radius: 1.2rem;
   box-shadow: var(--glow);
-  backdrop-filter: blur(8px); /* Giữ 1 chỗ duy nhất để vẫn đẹp */
+  padding: 1.8rem;
+  max-width: 480px;
+  width: 90%;
 }
 
-/* Responsive */
+.restart-btn, .auth-form button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.9rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: var(--glow);
+  transition: all 0.3s;
+}
+
+.restart-btn:hover, .auth-form button:hover {
+  background: #ff4d79;
+  transform: translateY(-3px);
+}
+
+footer {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+/* Responsive hoàn hảo */
 @media (max-width: 768px) {
-  header { padding: 3rem 1rem 2rem; }
-  .days { font-size: clamp(3.5rem, 14vw, 6rem); }
+  header { padding: 2.5rem 1rem 1.5rem; }
+  .days { font-size: clamp(3.2rem, 12vw, 5.5rem); }
+  .modal-content { padding: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 2.8rem; }
+  .ban-message { font-size: 2rem; }
 }
