@@ -1,130 +1,1836 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Trang web Kiên Lọ - 100 Ngày Thử Thách</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Quản Lý Truy Cập An Toàn - Made in VN 🇻🇳</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; overflow: hidden; z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+        @keyframes float {
+            0%,100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .header h1 {
+            font-size: 2em;
+            background: linear-gradient(45deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .header .author {
+            color: #00d4ff;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .status-box {
+            background: rgba(255,255,255,0.05);
+            padding: 15px 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            min-width: 150px;
+            transition: all 0.3s;
+        }
+        .status-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,212,255,0.2);
+        }
+        .status-box h3 {
+            color: #00d4ff;
+            margin-bottom: 8px;
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+        .clock-display {
+            font-size: 1.6em;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        .score-display {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255,215,0,0.5);
+        }
+        .shield-display {
+            font-size: 1.8em;
+        }
+
+        /* Hover Effects */
+        .btn, .auth-tab, .menu-item, .shop-item, .avatar-option {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .btn:hover, .auth-tab:hover, .menu-item:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,212,255,0.3);
+        }
+        .btn:active, .auth-tab:active, .menu-item:active {
+            transform: scale(0.95);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #00d4ff, #7b2cbf);
+            border: none;
+            color: #fff;
+            font-size: 1em;
+            font-weight: bold;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        .btn:hover::before {
+            left: 100%;
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn.danger {
+            background: linear-gradient(45deg, #ff4757, #ff6b7a);
+        }
+        .btn.success {
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #000;
+        }
+        .btn.warning {
+            background: linear-gradient(45deg, #ffa502, #ff7675);
+        }
+
+        /* Age Section */
+        .age-section {
+            background: linear-gradient(135deg, rgba(255,71,87,0.1), rgba(123,44,191,0.1));
+            border: 2px solid #ff4757;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .age-section h2 {
+            color: #ff4757;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .age-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .age-inputs input {
+            width: 100px;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2em;
+            border: 2px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        .age-inputs input:focus {
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0,212,255,0.3);
+            outline: none;
+        }
+
+        /* Auth Section */
+        .auth-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        .auth-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .auth-tab {
+            padding: 12px 30px;
+            background: transparent;
+            border: 2px solid #00d4ff;
+            color: #00d4ff;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+        .auth-tab.active {
+            background: #00d4ff;
+            color: #1a1a2e;
+        }
+        .auth-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #a0a0a0;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0,212,255,0.2);
+            outline: none;
+        }
+        .submit-btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* User Panel */
+        .user-panel {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .user-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+        .user-header:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #00d4ff;
+            object-fit: cover;
+            transition: all 0.3s;
+        }
+        .avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0,212,255,0.5);
+        }
+        .user-info h2 {
+            color: #00d4ff;
+            margin-bottom: 5px;
+        }
+        .age-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        .age-badge.full { background: #00ff88; color: #000; }
+        .age-badge.limited { background: #ffa502; color: #000; }
+        .age-badge.blocked { background: #ff4757; color: #fff; }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.08);
+        }
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        .stat-label {
+            color: #a0a0a0;
+            font-size: 0.85em;
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .menu-item {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .menu-item:hover {
+            border-color: #00d4ff;
+            background: rgba(0,212,255,0.1);
+        }
+        .menu-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .menu-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .menu-desc {
+            font-size: 0.85em;
+            color: #a0a0a0;
+        }
+
+        /* Check-in System */
+        .checkin-section {
+            background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,212,255,0.1));
+            border: 2px solid #00ff88;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .checkin-section h2 {
+            color: #00ff88;
+            margin-bottom: 20px;
+        }
+        .combo-display {
+            font-size: 1.5em;
+            margin: 15px 0;
+        }
+        .combo-fire {
+            color: #ff6b35;
+            animation: fire 1s infinite alternate;
+        }
+        @keyframes fire {
+            from { text-shadow: 0 0 10px #ff6b35; }
+            to { text-shadow: 0 0 30px #ff6b35, 0 0 60px #ff0000; }
+        }
+        .streak-days {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .streak-day {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+        .streak-day.checked {
+            background: #00ff88;
+            border-color: #00ff88;
+            color: #000;
+            animation: bounce 0.5s;
+        }
+        .streak-day.pending {
+            background: #ffa502;
+            border-color: #ffa502;
+            animation: pulse 1s infinite;
+        }
+        @keyframes bounce {
+            0%,100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Filter Challenge */
+        .filter-challenge {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .filter-challenge h2 {
+            color: #00d4ff;
+            margin-bottom: 20px;
+        }
+        .attempts-display {
+            font-size: 1.2em;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+        .attempts-hearts {
+            color: #ff4757;
+            font-size: 1.5em;
+        }
+        .warning-box {
+            background: rgba(255,165,2,0.2);
+            border: 2px solid #ffa502;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            display: none;
+        }
+        .warning-box.active {
+            display: block;
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%,100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Emotion Display */
+        .emotion-display {
+            font-size: 4em;
+            margin: 20px 0;
+            animation: emotionBounce 1s infinite alternate;
+        }
+        @keyframes emotionBounce {
+            from { transform: scale(1) rotate(-5deg); }
+            to { transform: scale(1.1) rotate(5deg); }
+        }
+
+        /* Shop */
+        .shop-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .shop-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .shop-item {
+            background: rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .shop-item:hover {
+            border-color: #ffd700;
+            transform: translateY(-5px);
+        }
+        .shop-item.recommended::before {
+            content: 'HOT';
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: #ff4757;
+            color: #fff;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.75em;
+            font-weight: bold;
+        }
+        .shop-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        .shop-name {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .shop-desc {
+            font-size: 0.85em;
+            color: #a0a0a0;
+            margin-bottom: 15px;
+        }
+        .shop-price {
+            font-size: 1.5em;
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* Profile Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e, #302b63);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 2px solid #00d4ff;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .modal-header h2 {
+            color: #00d4ff;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            color: #ff4757;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        .avatar-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .avatar-option {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            object-fit: cover;
+        }
+        .avatar-option:hover {
+            border-color: #00d4ff;
+            transform: scale(1.1);
+        }
+        .avatar-option.selected {
+            border-color: #00ff88;
+            box-shadow: 0 0 20px rgba(0,255,136,0.5);
+        }
+
+        /* Owner Message */
+        .owner-message {
+            background: linear-gradient(135deg, rgba(123,44,191,0.2), rgba(0,212,255,0.2));
+            border: 2px solid #7b2cbf;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .owner-message::before {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1.5em;
+            animation: sparkle 2s infinite;
+        }
+        @keyframes sparkle {
+            0%,100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+        .owner-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid #7b2cbf;
+            margin-bottom: 15px;
+        }
+        .owner-name {
+            color: #7b2cbf;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .owner-quote {
+            font-style: italic;
+            color: #ccc;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .rare-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #ffd700, #ffa502);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Anti-Hack Warning */
+        .anti-hack {
+            background: rgba(255,0,0,0.1);
+            border: 2px solid #ff0000;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            display: none;
+        }
+        .anti-hack.active {
+            display: block;
+            animation: hackWarning 0.5s infinite;
+        }
+        @keyframes hackWarning {
+            0%,100% { background: rgba(255,0,0,0.1); }
+            50% { background: rgba(255,0,0,0.3); }
+        }
+
+        /* Block Screen */
+        .block-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #1a1a2e, #2d132c);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+        .block-screen.active {
+            display: flex;
+        }
+        .countdown-box {
+            background: rgba(255,71,87,0.1);
+            border: 2px solid #ff4757;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        .countdown-time {
+            font-size: 3em;
+            font-weight: bold;
+            color: #ff4757;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.9);
+            border-top: 2px solid #00d4ff;
+            padding: 15px;
+            text-align: center;
+            z-index: 100;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .flag-vn {
+            font-size: 1.2em;
+        }
+
+        /* Hidden */
+        .hidden { display: none !important; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.4em; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .avatar-grid { grid-template-columns: repeat(3, 1fr); }
+            .countdown-time { font-size: 2em; }
+        }
+    </style>
+<base target="_blank">
 </head>
 <body>
+    <div class="particles" id="particles"></div>
 
-<div id="authModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">×</span>
-
-    <div id="loginForm" class="auth-form">
-      <h2>ĐĂNG NHẬP</h2>
-      <form onsubmit="handleLogin(event)">
-        <label>Tên hoặc Gmail <span class="required">*</span></label>
-        <input type="text" id="loginIdentifier" required placeholder="Tên hoặc Gmail">
-
-        <label>Mật khẩu <span class="required">*</span></label>
-        <input type="password" id="loginPassword" required placeholder="Mật khẩu">
-
-        <button type="submit">ĐĂNG NHẬP</button>
-      </form>
-      <div class="auth-links">
-        <a href="#" onclick="showRegister()">Chưa có tài khoản? Đăng ký</a><br>
-        <a href="#" onclick="showForgot()">Quên mật khẩu?</a>
-      </div>
+    <!-- Block Screen -->
+    <div class="block-screen" id="blockScreen">
+        <div style="font-size: 5em;">🚫</div>
+        <h1 style="color: #ff4757; margin-bottom: 20px;">TRUY CẬP BỊ TẠM KHÓA</h1>
+        <p>Bạn chưa đủ 15 tuổi để sử dụng hệ thống.</p>
+        <div class="countdown-box">
+            <div class="countdown-time" id="countdown">00:00:00</div>
+            <div style="color: #a0a0a0; margin-top: 10px;">Thời gian còn lại</div>
+        </div>
+        <div style="margin-top: 20px;">
+            <p>Ngày sinh: <span id="blockedBirthDate">--/--/----</span></p>
+            <p>Tuổi: <span id="blockedAge">0</span></p>
+        </div>
     </div>
 
-    <div id="registerForm" class="auth-form hidden">
-      <h2>ĐĂNG KÝ</h2>
-      <form onsubmit="handleRegister(event)">
-        <label>Tên hiển thị <span class="required">*</span></label>
-        <input type="text" id="regUsername" required placeholder="Tên hiển thị">
+    <!-- Profile Modal -->
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>👤 Chỉnh sửa hồ sơ</h2>
+                <button class="close-btn" onclick="closeProfile()">✕</button>
+            </div>
 
-        <label>Gmail <span class="required">*</span></label>
-        <input type="email" id="regEmail" required placeholder="example@gmail.com">
+            <div class="form-group">
+                <label>Avatar</label>
+                <div class="avatar-grid" id="avatarGrid"></div>
+            </div>
 
-        <label>Mật khẩu <span class="required">*</span></label>
-        <input type="password" id="regPassword" required minlength="6" placeholder="Mật khẩu (≥6 ký tự)">
+            <div class="form-group">
+                <label>Tên hiển thị</label>
+                <input type="text" id="editName" placeholder="Tên của bạn">
+            </div>
 
-        <label>Xác nhận mật khẩu <span class="required">*</span></label>
-        <input type="password" id="regConfirm" required placeholder="Nhập lại mật khẩu">
+            <div class="form-group">
+                <label>Giới tính</label>
+                <select id="editGender">
+                    <option value="nam">Nam</option>
+                    <option value="nu">Nữ</option>
+                    <option value="khac">Khác</option>
+                </select>
+            </div>
 
-        <button type="submit">ĐĂNG KÝ</button>
-      </form>
-      <div class="auth-links">
-        <a href="#" onclick="showLogin()">Đã có tài khoản? Đăng nhập</a>
-      </div>
+            <div class="form-group">
+                <label>Tiểu sử</label>
+                <textarea id="editBio" rows="3" placeholder="Giới thiệu về bạn..."></textarea>
+            </div>
+
+            <button class="btn submit-btn" onclick="saveProfile()">💾 Lưu thay đổi</button>
+        </div>
     </div>
 
-    <div id="forgotForm" class="auth-form hidden">
-      <h2>QUÊN MẬT KHẨU</h2>
-      <form onsubmit="handleForgot(event)">
-        <label>Tên hoặc Gmail <span class="required">*</span></label>
-        <input type="text" id="forgotIdentifier" required placeholder="Tên hoặc Gmail">
+    <div class="container" id="mainContent">
+        <!-- Header -->
+        <div class="header">
+            <h1>🛡️ HỆ THỐNG QUẢN LÝ TRUY CẬP AN TOÀN</h1>
+            <p style="color: #a0a0a0;">Bảo vệ người dùng - Tuân thủ pháp luật Việt Nam</p>
+            <p class="author">Made by: Nguyễn Chí Dự 🇻🇳</p>
+        </div>
 
-        <label>Mật khẩu cũ <span class="required">*</span></label>
-        <input type="password" id="forgotOldPass" required placeholder="Mật khẩu cũ">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-box">
+                <h3>Thời gian</h3>
+                <div class="clock-display" id="clock">00:00:00</div>
+                <div style="font-size: 0.8em; color: #a0a0a0;" id="date">--/--</div>
+            </div>
+            <div class="status-box">
+                <h3>Điểm</h3>
+                <div class="score-display" id="scoreDisplay">0</div>
+            </div>
+            <div class="status-box">
+                <h3>Khiên bảo hộ</h3>
+                <div class="shield-display" id="shieldDisplay">🛡️ x0</div>
+            </div>
+            <div class="status-box">
+                <h3>Combo</h3>
+                <div class="clock-display" id="comboDisplay" style="color: #ff6b35;">0 ngày</div>
+            </div>
+        </div>
 
-        <label>Mật khẩu mới <span class="required">*</span></label>
-        <input type="password" id="forgotNewPass" required minlength="6" placeholder="Mật khẩu mới">
+        <!-- Owner Message (Rare) -->
+        <div class="owner-message" id="ownerMessage">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=nguyenchiduc&backgroundColor=b6e3f4" class="owner-avatar" alt="Owner">
+            <div class="owner-name">👑 Nguyễn Chí Dự - Founder</div>
+            <div class="owner-quote" id="ownerQuote">
+                "Chào bạn, tui là người tạo ra Website này, tui chỉ mong bạn luôn tuân theo hệ thống của website!"
+            </div>
+            <div class="rare-badge">✨ LỜI NHẮN HIẾM ✨</div>
+        </div>
 
-        <button type="submit">ĐẶT LẠI</button>
-      </form>
-      <div class="auth-links">
-        <a href="#" onclick="showLogin()">Quay lại đăng nhập</a>
-      </div>
+        <!-- Age Verification -->
+        <div class="age-section" id="ageSection">
+            <h2>🔒 XÁC THỰC ĐỘ TUỔI</h2>
+            <p style="margin-bottom: 20px; color: #a0a0a0;">Yêu cầu từ 15 tuổi trở lên</p>
+            <div class="age-inputs">
+                <input type="number" id="day" placeholder="Ngày" min="1" max="31">
+                <input type="number" id="month" placeholder="Tháng" min="1" max="12">
+                <input type="number" id="year" placeholder="Năm" min="1900" max="2026">
+            </div>
+            <button class="btn" onclick="verifyAge()">XÁC NHẬN TUỔI</button>
+            <p id="ageError" style="color: #ff4757; margin-top: 15px; display: none;"></p>
+        </div>
+
+        <!-- Auth Section -->
+        <div class="auth-section hidden" id="authSection">
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchTab('login')">ĐĂNG NHẬP</button>
+                <button class="auth-tab" onclick="switchTab('register')">ĐĂNG KÝ</button>
+            </div>
+
+            <form class="auth-form" id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Tên đăng nhập</label>
+                    <input type="text" id="loginUsername" required>
+                </div>
+                <div class="form-group">
+                    <label>Mật khẩu</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn submit-btn">🔐 ĐĂNG NHẬP</button>
+            </form>
+
+            <form class="auth-form hidden" id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Tên đăng nhập</label>
+                    <input type="text" id="regUsername" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Mật khẩu</label>
+                    <input type="password" id="regPassword" required>
+                </div>
+                <button type="submit" class="btn submit-btn">✨ ĐĂNG KÝ</button>
+            </form>
+        </div>
+
+        <!-- User Panel -->
+        <div class="user-panel hidden" id="userPanel">
+            <div class="user-header" onclick="openProfile()">
+                <img src="" class="avatar" id="userAvatar" alt="Avatar">
+                <div class="user-info">
+                    <h2 id="displayName">User</h2>
+                    <span class="age-badge" id="ageBadge">Checking...</span>
+                    <p style="color: #a0a0a0; font-size: 0.9em; margin-top: 5px;" id="userBio">Chưa có tiểu sử</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="statPoints">0</div>
+                    <div class="stat-label">Điểm tích lũy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="statShields">0</div>
+                    <div class="stat-label">Khiên bảo hộ</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="statStreak">0</div>
+                    <div class="stat-label">Streak (ngày)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="statChecks">0</div>
+                    <div class="stat-label">Lần kiểm tra</div>
+                </div>
+            </div>
+
+            <div class="menu-grid">
+                <div class="menu-item" onclick="showSection('checkin')">
+                    <div class="menu-icon">📅</div>
+                    <div class="menu-title">Điểm danh</div>
+                    <div class="menu-desc">Nhận điểm hàng ngày</div>
+                </div>
+                <div class="menu-item" onclick="showSection('filter')">
+                    <div class="menu-icon">🛡️</div>
+                    <div class="menu-title">Kiểm lọc</div>
+                    <div class="menu-desc">Thử thách kiểm lọc</div>
+                </div>
+                <div class="menu-item" onclick="showSection('shop')">
+                    <div class="menu-icon">🛒</div>
+                    <div class="menu-title">Cửa hàng</div>
+                    <div class="menu-desc">Mua khiên bảo hộ</div>
+                </div>
+                <div class="menu-item" onclick="showSection('messages')">
+                    <div class="menu-icon">💬</div>
+                    <div class="menu-title">Lời nhắn</div>
+                    <div class="menu-desc">Tin nhắn đặc biệt</div>
+                </div>
+            </div>
+
+            <button class="btn logout-btn" onclick="logout()">🚪 ĐĂNG XUẤT</button>
+        </div>
+
+        <!-- Check-in Section -->
+        <div class="checkin-section hidden" id="checkinSection">
+            <h2>📅 HỆ THỐNG ĐIỂM DANH</h2>
+            <div class="combo-display">
+                Combo hiện tại: <span class="combo-fire" id="comboText">0 ngày 🔥</span>
+            </div>
+            <p style="color: #a0a0a0; margin: 10px 0;">Điểm danh 7 ngày liên tiếp để nhận khiên bảo hộ x1!</p>
+
+            <div class="streak-days" id="streakDays"></div>
+
+            <div id="nextReward" style="margin: 20px 0; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 10px;">
+                <p>🎁 Phần thưởng tiếp theo: <span id="rewardText">Khiên bảo hộ x1</span></p>
+                <p style="font-size: 0.9em; color: #ffa502;">Còn <span id="daysLeft">7</span> ngày nữa</p>
+            </div>
+
+            <button class="btn success" id="checkinBtn" onclick="performCheckin()">
+                📍 ĐIỂM DANH HÔM NAY (+5 điểm)
+            </button>
+            <p id="checkinStatus" style="margin-top: 15px; color: #a0a0a0;"></p>
+        </div>
+
+        <!-- Filter Challenge Section -->
+        <div class="filter-challenge hidden" id="filterSection">
+            <h2>🛡️ THỬ THÁCH KIỂM LỌC</h2>
+            <p style="color: #a0a0a0; margin-bottom: 20px;">
+                Bạn có <span id="maxAttempts">3</span> lần thử. Hết lần = Bị phạt nặng!
+            </p>
+
+            <div class="emotion-display" id="emotionDisplay">😐</div>
+            <p id="emotionText" style="color: #a0a0a0; margin-bottom: 20px;">Đang chờ bạn kiểm lọc...</p>
+
+            <div class="attempts-display">
+                Lần thử còn lại: <span class="attempts-hearts" id="attemptsHearts">❤️❤️❤️</span>
+                <span id="attemptsText">(3/3)</span>
+            </div>
+
+            <div class="warning-box" id="warningBox">
+                <h3 style="color: #ffa502;">⚠️ CẢNH BÁO HÌNH PHẠT</h3>
+                <p>Bạn sắp hết lần thử! Nếu thất bại, bạn sẽ bị trừ <span id="penaltyRange">10-100</span> điểm!</p>
+            </div>
+
+            <div class="anti-hack" id="antiHack">
+                <h3>🚨 PHÁT HIỆN GIAN LẬN!</h3>
+                <p>Hệ thống phát hiện hành vi bất thường!</p>
+                <p style="color: #ff4757; font-weight: bold;">Bị trừ <span id="hackPenalty">500</span> điểm!</p>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <input type="text" id="filterInput" placeholder="Nhập nội dung cần kiểm lọc..." 
+                       style="width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #00d4ff; background: rgba(0,0,0,0.3); color: #fff; margin-bottom: 10px;">
+                <button class="btn" onclick="attemptFilter()" id="filterBtn">
+                    🔍 KIỂM LỌC NGAY
+                </button>
+            </div>
+
+            <div id="filterResult" style="margin-top: 20px;"></div>
+        </div>
+
+        <!-- Shop Section -->
+        <div class="shop-section hidden" id="shopSection">
+            <h2>🛒 CỬA HÀNG BẢO HỘ</h2>
+            <p style="text-align: center; color: #a0a0a0; margin-bottom: 20px;">
+                Sử dụng điểm để mua khiên bảo hộ
+            </p>
+
+            <div class="shop-grid">
+                <div class="shop-item" onclick="buyItem('shield1')">
+                    <div class="shop-icon">🛡️</div>
+                    <div class="shop-name">Khiên Bảo Hộ 1 Ngày</div>
+                    <div class="shop-desc">Bảo vệ khỏi phạt trong 24h</div>
+                    <div class="shop-price">50 điểm</div>
+                    <button class="btn" style="width: 100%;">MUA NGAY</button>
+                </div>
+
+                <div class="shop-item recommended" onclick="buyItem('shield7')">
+                    <div class="shop-icon">🛡️🛡️</div>
+                    <div class="shop-name">Khiên Bảo Hộ 7 Ngày</div>
+                    <div class="shop-desc">Bảo vệ 1 tuần + bonus điểm</div>
+                    <div class="shop-price">300 điểm</div>
+                    <button class="btn success" style="width: 100%;">MUA NGAY</button>
+                </div>
+
+                <div class="shop-item" onclick="buyItem('shield30')">
+                    <div class="shop-icon">🛡️✨</div>
+                    <div class="shop-name">Khiên Bảo Hộ 30 Ngày</div>
+                    <div class="shop-desc">Bảo vệ 1 tháng + VIP status</div>
+                    <div class="shop-price">1000 điểm</div>
+                    <button class="btn warning" style="width: 100%;">MUA NGAY</button>
+                </div>
+
+                <div class="shop-item" onclick="buyItem('extraLife')">
+                    <div class="shop-icon">❤️</div>
+                    <div class="shop-name">Thêm Lần Thử</div>
+                    <div class="shop-desc">+1 lần thử kiểm lọc</div>
+                    <div class="shop-price">100 điểm</div>
+                    <button class="btn" style="width: 100%;">MUA NGAY</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Section -->
+        <div class="filter-challenge hidden" id="messagesSection">
+            <h2>💬 LỜI NHẮN ĐẶC BIỆT</h2>
+            <p style="color: #a0a0a0; margin-bottom: 20px;">Những lời nhắn hiếm từ hệ thống và chủ website</p>
+
+            <div id="messagesList" style="text-align: left;"></div>
+        </div>
     </div>
-  </div>
-</div>
 
-<div class="container">
-  <header>
-    <h1>TRANG WEB KIÊN LỌ</h1>
-    <div class="creator">Tạo bởi: Nguyễn Chí Dự 🇻🇳♥️🇻🇳</div>
-    
-    <div id="userInfo" class="hidden">
-      Xin chào, <span id="currentUser"></span>! 
-      <button onclick="logout()">Đăng xuất</button>
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-item">
+                <span class="flag-vn">🇻🇳</span>
+                <span>Made in Vietnam</span>
+            </div>
+            <div class="footer-item">
+                <span>👨‍💻 Made by: Nguyễn Chí Dự</span>
+            </div>
+            <div class="footer-item">
+                <span>📜 Tuân thủ pháp luật Việt Nam</span>
+                <span class="flag-vn">🇻🇳</span>
+            </div>
+        </div>
     </div>
-    
-    <div class="days" id="daysDisplay">0</div>
-    <div class="subtitle">ngày kiên lọ thành công</div>
-    
-    <div class="rank-box">
-      Rank: <span id="userRank">Khách</span>
-    </div>
-  </header>
 
-  <div class="warning-box">
-    <h2>QUY TẮC NGHIÊM KHẮC</h2>
-    <p>Mục tiêu: <strong>100 ngày</strong> không xem nội dung đen tối<br>
-      Vi phạm 1–2 lần → nhắc nhở<br>
-      Lần thứ <strong>3</strong> → THẤT BẠI, RESET VỀ 0</p>
-  </div>
+    <script>
 
-  <div id="failScreen" class="hidden">
-    <div class="ban-message">
-      TẠI SAO BẠN LẠI NHẬP LIÊN KẾT ĐEN TỐI 😠<br><br>
-      BẠN ĐÃ THUA!<br>
-      BẮT ĐẦU LẠI THỬ THÁCH
-    </div>
-    <button class="restart-btn" onclick="resetChallenge()">BẮT ĐẦU LẠI</button>
-  </div>
-</div>
+        // ========== CONFIGURATION ==========
+        const BLOCKED_KEYWORDS = [
+            'sex', 'xxx', 'porn', 'adult', 'nude', 'naked', 'fuck',
+            'pussy', 'dick', 'cock', 'tits', 'boobs', 'ass', 'slut',
+            'bitch', 'bastard', 'cunt', 'cum', 'blowjob', 'handjob',
+            'anal', 'orgy', 'gangbang', 'milf', 'hentai', 'jav',
+            'onlyfans', 'redtube', 'pornhub', 'xvideos', 'xhamster',
+            'xnxx', 'youporn', 'tube8', 'chaturbate', 'livejasmin'
+        ];
 
-<footer>
-  Made in VN 🇻🇳♥️🇻🇳<br>
-  Made by: Nguyễn Chí Dự 🇻🇳♥️🇻🇳<br>
-  Hỗ trợ: Herogoodboymc2024@gmail.com
-</footer>
+        const OWNER_QUOTES = [
+            "Chào bạn, tui là người tạo ra Website này, tui chỉ mong bạn luôn tuân theo hệ thống của website!",
+            "Hãy nhớ rằng, sự an toàn trên mạng là trách nhiệm của chúng ta!",
+            "Mỗi lần kiểm lọc thành công là một bước bảo vệ bản thân!",
+            "Đừng bao giờ cố gắng qua mặt hệ thống, tui đang theo dõi đấy! 😊",
+            "Kiên trì điểm danh mỗi ngày, phần thưởng sẽ đến với bạn!",
+            "Hãy trở thành người dùng có trách nhiệm trên không gian mạng!",
+            "Tui tin bạn có thể duy trì streak dài nhất! Cố lên!",
+            "An toàn thông tin là quyền lợi của bạn, hãy bảo vệ nó!",
+            "Mỗi điểm bạn kiếm được là sự cố gắng của bạn, tui tự hào về bạn!",
+            "Hệ thống này được tạo ra để bảo vệ bạn, hãy sử dụng nó đúng cách!"
+        ];
 
-<audio id="angrySound" preload="auto">
-  <source src="https://assets.codepen.io/12213782/angry-short.mp3" type="audio/mpeg">
-</audio>
-<audio id="failEpicSound" preload="auto">
-  <source src="https://assets.codepen.io/12213782/game-over-epic.mp3" type="audio/mpeg">
-</audio>
+        const EMOTIONS = {
+            neutral: { emoji: '😐', text: 'Đang chờ bạn kiểm lọc...' },
+            happy: { emoji: '😊', text: 'Tuyệt vời! Bạn làm rất tốt!' },
+            excited: { emoji: '🤩', text: 'Xuất sắc! Tiếp tục phát huy nhé!' },
+            worried: { emoji: '😰', text: 'Cẩn thận! Bạn sắp hết lần thử!' },
+            sad: { emoji: '😢', text: 'Thất bại rồi... Đừng bỏ cuộc nhé!' },
+            crying: { emoji: '😭', text: 'Bị phạt nặng rồi... Lần sau cẩn thận hơn!' },
+            angry: { emoji: '😠', text: 'Phát hiện gian lận! Không được phép!' },
+            shocked: { emoji: '😱', text: 'Hệ thống phát hiện hành vi bất thường!' }
+        };
 
-<script src="script.js"></script>
+        // ========== STATE ==========
+        let userAge = 0;
+        let userScore = 0;
+        let userShields = 0;
+        let streakDays = 0;
+        let isRestricted = false;
+        let attemptsLeft = 3;
+        let currentUser = null;
+        let countdownInterval = null;
+        let ttsVolume = 0.3; // Volume 0.3 (nhỏ)
+
+        // ========== TTS ==========
+        function speak(text, priority = 'normal') {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'vi-VN';
+                utterance.rate = 0.9;
+                utterance.pitch = priority === 'warning' ? 1.2 : 1;
+                utterance.volume = ttsVolume; // Âm lượng nhỏ
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // ========== PARTICLES ==========
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // ========== CLOCK ==========
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = 
+                now.toLocaleTimeString('vi-VN', { hour12: false });
+            document.getElementById('date').textContent = 
+                now.toLocaleDateString('vi-VN');
+        }
+
+        // ========== AGE VERIFICATION ==========
+        function verifyAge() {
+            const day = parseInt(document.getElementById('day').value);
+            const month = parseInt(document.getElementById('month').value);
+            const year = parseInt(document.getElementById('year').value);
+            const errorEl = document.getElementById('ageError');
+
+            if (!day || !month || !year) {
+                errorEl.textContent = 'Vui lòng nhập đầy đủ!';
+                errorEl.style.display = 'block';
+                speak('Vui lòng nhập đầy đủ ngày tháng năm sinh', 'warning');
+                return;
+            }
+
+            const birthDate = new Date(year, month - 1, day);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            userAge = age;
+
+            // ANTI-HACK: Check if trying to bypass with dev tools
+            if (window.outerWidth - window.innerWidth > 100 || window.outerHeight - window.innerHeight > 100) {
+                triggerAntiHack('Phát hiện cửa sổ DevTools!');
+                return;
+            }
+
+            if (age < 15) {
+                const blockDays = Math.floor(Math.random() * 7) + 1;
+                const unblockTime = new Date(today.getTime() + blockDays * 24 * 60 * 60 * 1000);
+
+                localStorage.setItem('blocked', 'true');
+                localStorage.setItem('unblockTime', unblockTime.toISOString());
+                localStorage.setItem('blockBirthDate', `${day}/${month}/${year}`);
+                localStorage.setItem('blockAge', age);
+                localStorage.setItem('blockDays', blockDays);
+
+                showBlockScreen(unblockTime, day, month, year, age, blockDays);
+                speak(`Truy cập bị khóa. Bạn chưa đủ 15 tuổi. Vui lòng quay lại sau ${blockDays} ngày.`, 'warning');
+            } else {
+                errorEl.style.display = 'none';
+                document.getElementById('ageSection').classList.add('hidden');
+                document.getElementById('authSection').classList.remove('hidden');
+
+                localStorage.setItem('ageVerified', 'true');
+                localStorage.setItem('userAge', age);
+                localStorage.setItem('birthDate', `${year}-${month}-${day}`);
+
+                isRestricted = (age >= 15 && age < 18);
+                localStorage.setItem('isRestricted', isRestricted);
+
+                if (isRestricted) {
+                    speak('Bạn đã đăng nhập với tài khoản bị giới hạn do chưa đủ 18 tuổi. Một số tính năng đã bị khóa.');
+                } else {
+                    speak('Xác thực thành công. Chào mừng bạn đến với hệ thống!');
+                }
+            }
+        }
+
+        function showBlockScreen(unblockTime, day, month, year, age, blockDays) {
+            document.getElementById('blockScreen').classList.add('active');
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('blockedBirthDate').textContent = `${day}/${month}/${year}`;
+            document.getElementById('blockedAge').textContent = age;
+
+            updateCountdown(unblockTime);
+            countdownInterval = setInterval(() => updateCountdown(unblockTime), 1000);
+        }
+
+        function updateCountdown(unblockTime) {
+            const now = new Date();
+            const diff = unblockTime - now;
+
+            if (diff <= 0) {
+                clearInterval(countdownInterval);
+                localStorage.removeItem('blocked');
+                localStorage.removeItem('unblockTime');
+                location.reload();
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').textContent = 
+                `${days}d ${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+        }
+
+        // ========== AUTH ==========
+        function switchTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (tab === 'login') {
+                document.getElementById('loginForm').classList.remove('hidden');
+                document.getElementById('registerForm').classList.add('hidden');
+            } else {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('registerForm').classList.remove('hidden');
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+
+            if (users.find(u => u.username === username)) {
+                speak('Tên đăng nhập đã tồn tại', 'warning');
+                alert('Tên đăng nhập đã tồn tại!');
+                return;
+            }
+
+            const newUser = {
+                username, email, password,
+                age: userAge,
+                score: 0,
+                shields: 0,
+                streak: 0,
+                lastCheckin: null,
+                avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${username}&backgroundColor=b6e3f4`,
+                displayName: username,
+                gender: 'nam',
+                bio: 'Chưa có tiểu sử',
+                created: new Date().toISOString()
+            };
+
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            speak('Đăng ký thành công!');
+            alert('Đăng ký thành công!');
+            switchTab('login');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', username);
+                localStorage.setItem('userScore', user.score || 0);
+                localStorage.setItem('userShields', user.shields || 0);
+                localStorage.setItem('streakDays', user.streak || 0);
+
+                showUserPanel(user);
+                speak(`Chào mừng ${user.displayName || username} đã quay trở lại!`);
+            } else {
+                speak('Sai tên đăng nhập hoặc mật khẩu', 'warning');
+                alert('Sai thông tin đăng nhập!');
+            }
+        }
+
+        function showUserPanel(user) {
+            document.getElementById('authSection').classList.add('hidden');
+            document.getElementById('userPanel').classList.remove('hidden');
+
+            document.getElementById('userAvatar').src = user.avatar;
+            document.getElementById('displayName').textContent = user.displayName || user.username;
+            document.getElementById('userBio').textContent = user.bio;
+
+            const age = parseInt(localStorage.getItem('userAge') || '0');
+            const badge = document.getElementById('ageBadge');
+
+            if (age >= 18) {
+                badge.textContent = '🔓 FULL ACCESS (18+)';
+                badge.className = 'age-badge full';
+            } else {
+                badge.textContent = '🔒 GIỚI HẠN (15-17)';
+                badge.className = 'age-badge limited';
+            }
+
+            updateStats();
+
+            // Random owner quote
+            const randomQuote = OWNER_QUOTES[Math.floor(Math.random() * OWNER_QUOTES.length)];
+            document.getElementById('ownerQuote').textContent = `"${randomQuote}"`;
+        }
+
+        function updateStats() {
+            userScore = parseInt(localStorage.getItem('userScore') || '0');
+            userShields = parseInt(localStorage.getItem('userShields') || '0');
+            streakDays = parseInt(localStorage.getItem('streakDays') || '0');
+
+            document.getElementById('scoreDisplay').textContent = userScore;
+            document.getElementById('shieldDisplay').textContent = `🛡️ x${userShields}`;
+            document.getElementById('comboDisplay').textContent = `${streakDays} ngày`;
+
+            document.getElementById('statPoints').textContent = userScore;
+            document.getElementById('statShields').textContent = userShields;
+            document.getElementById('statStreak').textContent = streakDays;
+            document.getElementById('statChecks').textContent = localStorage.getItem('totalChecks') || '0';
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            speak('Tạm biệt! Hẹn gặp lại.');
+            location.reload();
+        }
+
+        // ========== PROFILE ==========
+        function openProfile() {
+            const username = localStorage.getItem('currentUser');
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.username === username);
+
+            if (!user) return;
+
+            // Generate avatar options
+            const avatarGrid = document.getElementById('avatarGrid');
+            avatarGrid.innerHTML = '';
+            const seeds = ['felix', 'aneka', 'zack', 'bella', 'leo', 'molly', 'rocky', 'luna'];
+            seeds.forEach(seed => {
+                const img = document.createElement('img');
+                img.src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}&backgroundColor=b6e3f4`;
+                img.className = 'avatar-option';
+                if (user.avatar === img.src) img.classList.add('selected');
+                img.onclick = () => {
+                    document.querySelectorAll('.avatar-option').forEach(a => a.classList.remove('selected'));
+                    img.classList.add('selected');
+                };
+                avatarGrid.appendChild(img);
+            });
+
+            document.getElementById('editName').value = user.displayName || user.username;
+            document.getElementById('editGender').value = user.gender || 'nam';
+            document.getElementById('editBio').value = user.bio || '';
+
+            document.getElementById('profileModal').classList.add('active');
+        }
+
+        function closeProfile() {
+            document.getElementById('profileModal').classList.remove('active');
+        }
+
+        function saveProfile() {
+            const username = localStorage.getItem('currentUser');
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = users.findIndex(u => u.username === username);
+
+            if (userIndex === -1) return;
+
+            const selectedAvatar = document.querySelector('.avatar-option.selected');
+            if (selectedAvatar) {
+                users[userIndex].avatar = selectedAvatar.src;
+            }
+
+            users[userIndex].displayName = document.getElementById('editName').value;
+            users[userIndex].gender = document.getElementById('editGender').value;
+            users[userIndex].bio = document.getElementById('editBio').value;
+
+            localStorage.setItem('users', JSON.stringify(users));
+
+            document.getElementById('userAvatar').src = users[userIndex].avatar;
+            document.getElementById('displayName').textContent = users[userIndex].displayName;
+            document.getElementById('userBio').textContent = users[userIndex].bio;
+
+            speak('Đã lưu thay đổi hồ sơ!');
+            closeProfile();
+        }
+
+        // ========== NAVIGATION ==========
+        function showSection(section) {
+            document.getElementById('checkinSection').classList.add('hidden');
+            document.getElementById('filterSection').classList.add('hidden');
+            document.getElementById('shopSection').classList.add('hidden');
+            document.getElementById('messagesSection').classList.add('hidden');
+            document.getElementById('userPanel').classList.add('hidden');
+
+            document.getElementById(section + 'Section').classList.remove('hidden');
+
+            if (section === 'checkin') {
+                initCheckin();
+            } else if (section === 'filter') {
+                initFilter();
+            } else if (section === 'messages') {
+                loadMessages();
+            }
+        }
+
+        // ========== CHECK-IN SYSTEM ==========
+        function initCheckin() {
+            const lastCheckin = localStorage.getItem('lastCheckin');
+            const today = new Date().toDateString();
+            const btn = document.getElementById('checkinBtn');
+            const status = document.getElementById('checkinStatus');
+
+            // Reset streak if missed a day
+            if (lastCheckin) {
+                const lastDate = new Date(lastCheckin);
+                const now = new Date();
+                const diffDays = Math.floor((now - lastDate) / (1000 * 60 * 60 * 24));
+
+                if (diffDays > 1) {
+                    streakDays = 0;
+                    localStorage.setItem('streakDays', 0);
+                    updateStats();
+                    speak('Bạn đã bỏ lỡ 1 ngày, streak đã bị reset!', 'warning');
+                }
+            }
+
+            // Check if already checked in today
+            if (lastCheckin === today) {
+                btn.disabled = true;
+                btn.textContent = '✅ ĐÃ ĐIỂM DANH HÔM NAY';
+                status.textContent = 'Hãy quay lại vào ngày mai để tiếp tục streak!';
+            } else {
+                btn.disabled = false;
+                btn.textContent = '📍 ĐIỂM DANH HÔM NAY (+5 điểm)';
+                status.textContent = 'Nhớ điểm danh mỗi ngày để nhận khiên bảo hộ!';
+            }
+
+            // Render streak days
+            const streakContainer = document.getElementById('streakDays');
+            streakContainer.innerHTML = '';
+            for (let i = 1; i <= 7; i++) {
+                const day = document.createElement('div');
+                day.className = 'streak-day';
+                day.textContent = i;
+                if (i <= streakDays) {
+                    day.classList.add('checked');
+                    day.textContent = '✓';
+                } else if (i === streakDays + 1 && lastCheckin !== today) {
+                    day.classList.add('pending');
+                }
+                streakContainer.appendChild(day);
+            }
+
+            // Update reward info
+            const daysLeft = Math.max(0, 7 - streakDays);
+            document.getElementById('daysLeft').textContent = daysLeft;
+            document.getElementById('comboText').textContent = `${streakDays} ngày 🔥`;
+        }
+
+        function performCheckin() {
+            const lastCheckin = localStorage.getItem('lastCheckin');
+            const today = new Date().toDateString();
+
+            if (lastCheckin === today) return;
+
+            // Check if 24h passed since last checkin
+            if (lastCheckin) {
+                const lastDate = new Date(lastCheckin);
+                const now = new Date();
+                const hoursDiff = (now - lastDate) / (1000 * 60 * 60);
+
+                if (hoursDiff < 20) { // ANTI-HACK: Must wait at least 20 hours
+                    triggerAntiHack('Phát hiện điểm danh spam!');
+                    return;
+                }
+            }
+
+            streakDays++;
+            localStorage.setItem('streakDays', streakDays);
+            localStorage.setItem('lastCheckin', today);
+
+            // Add points
+            addScore(5, 'Điểm danh hàng ngày');
+
+            // Check for shield reward (every 7 days)
+            if (streakDays >= 7) {
+                userShields++;
+                localStorage.setItem('userShields', userShields);
+                streakDays = 0; // Reset after reward
+                localStorage.setItem('streakDays', 0);
+                speak('Chúc mừng! Bạn đã nhận được khiên bảo hộ x1 sau 7 ngày liên tiếp!');
+                alert('🎉 Chúc mừng! Bạn nhận được KHIÊN BẢO HỘ x1!');
+            } else {
+                speak(`Điểm danh thành công! Streak hiện tại: ${streakDays} ngày`);
+            }
+
+            updateStats();
+            initCheckin();
+        }
+
+        // ========== FILTER CHALLENGE ==========
+        function initFilter() {
+            attemptsLeft = parseInt(localStorage.getItem('attemptsLeft') || '3');
+            updateAttemptsDisplay();
+
+            const age = parseInt(localStorage.getItem('userAge') || '0');
+            const penaltyRange = document.getElementById('penaltyRange');
+
+            if (age >= 18) {
+                penaltyRange.textContent = '100-1000';
+            } else {
+                penaltyRange.textContent = '10-200';
+            }
+
+            setEmotion('neutral');
+        }
+
+        function updateAttemptsDisplay() {
+            const hearts = '❤️'.repeat(attemptsLeft) + '🖤'.repeat(3 - attemptsLeft);
+            document.getElementById('attemptsHearts').textContent = hearts;
+            document.getElementById('attemptsText').textContent = `(${attemptsLeft}/3)`;
+
+            // Show warning if only 1 attempt left
+            const warningBox = document.getElementById('warningBox');
+            if (attemptsLeft === 1) {
+                warningBox.classList.add('active');
+                speak('Cảnh báo! Bạn chỉ còn 1 lần thử cuối cùng!', 'warning');
+            } else {
+                warningBox.classList.remove('active');
+            }
+        }
+
+        function setEmotion(type) {
+            const emotion = EMOTIONS[type];
+            document.getElementById('emotionDisplay').textContent = emotion.emoji;
+            document.getElementById('emotionText').textContent = emotion.text;
+        }
+
+        function attemptFilter() {
+            const input = document.getElementById('filterInput').value.toLowerCase();
+            const age = parseInt(localStorage.getItem('userAge') || '0');
+
+            if (!input) {
+                speak('Vui lòng nhập nội dung cần kiểm lọc', 'warning');
+                return;
+            }
+
+            // ANTI-HACK: Check for rapid attempts
+            const lastAttempt = localStorage.getItem('lastFilterAttempt');
+            if (lastAttempt) {
+                const secondsSinceLast = (Date.now() - parseInt(lastAttempt)) / 1000;
+                if (secondsSinceLast < 2) {
+                    triggerAntiHack('Phát hiện spam kiểm lọc!');
+                    return;
+                }
+            }
+            localStorage.setItem('lastFilterAttempt', Date.now());
+
+            // Check if has shield
+            if (userShields > 0) {
+                const useShield = confirm('Bạn có khiên bảo hộ! Bạn muốn sử dụng để tránh bị phạt không?');
+                if (useShield) {
+                    userShields--;
+                    localStorage.setItem('userShields', userShields);
+                    updateStats();
+                    speak('Đã sử dụng khiên bảo hộ! Bạn được bảo vệ khỏi phạt lần này.');
+                    setEmotion('happy');
+                    document.getElementById('filterResult').innerHTML = 
+                        '<div style="color: #00ff88;">🛡️ Khiên bảo hộ đã bảo vệ bạn!</div>';
+                    return;
+                }
+            }
+
+            const hasBadContent = BLOCKED_KEYWORDS.some(k => input.includes(k));
+
+            if (hasBadContent) {
+                // Failed filter
+                attemptsLeft--;
+                localStorage.setItem('attemptsLeft', attemptsLeft);
+                updateAttemptsDisplay();
+
+                if (attemptsLeft <= 0) {
+                    // Out of attempts - PENALTY
+                    let penalty;
+                    if (age >= 18) {
+                        penalty = Math.floor(Math.random() * 901) + 100; // 100-1000
+                    } else {
+                        penalty = Math.floor(Math.random() * 191) + 10; // 10-200
+                    }
+
+                    subtractScore(penalty, 'Thất bại kiểm lọc - Hết lần thử');
+                    setEmotion('crying');
+                    speak(`Bạn đã thất bại! Bị trừ ${penalty} điểm!`, 'warning');
+
+                    document.getElementById('filterResult').innerHTML = 
+                        `<div style="color: #ff4757; font-size: 1.2em;">❌ THẤT BẠI! Bị trừ ${penalty} điểm!</div>`;
+
+                    // Reset attempts after penalty
+                    setTimeout(() => {
+                        attemptsLeft = 3;
+                        localStorage.setItem('attemptsLeft', 3);
+                        updateAttemptsDisplay();
+                        document.getElementById('filterInput').value = '';
+                        document.getElementById('filterResult').innerHTML = '';
+                        setEmotion('neutral');
+                    }, 3000);
+                } else {
+                    setEmotion('sad');
+                    speak(`Phát hiện nội dung cấm! Bạn còn ${attemptsLeft} lần thử.`, 'warning');
+                    document.getElementById('filterResult').innerHTML = 
+                        `<div style="color: #ffa502;">⚠️ Phát hiện nội dung cấm! Còn ${attemptsLeft} lần thử.</div>`;
+                }
+            } else {
+                // Success
+                setEmotion('excited');
+                addScore(10, 'Kiểm lọc thành công');
+                speak('Xuất sắc! Kiểm lọc thành công! Cộng 10 điểm!');
+                document.getElementById('filterResult').innerHTML = 
+                    '<div style="color: #00ff88;">✅ Kiểm lọc thành công! +10 điểm</div>';
+
+                // Reset attempts on success
+                attemptsLeft = 3;
+                localStorage.setItem('attemptsLeft', 3);
+                updateAttemptsDisplay();
+            }
+
+            // Update total checks
+            let totalChecks = parseInt(localStorage.getItem('totalChecks') || '0') + 1;
+            localStorage.setItem('totalChecks', totalChecks);
+            document.getElementById('statChecks').textContent = totalChecks;
+        }
+
+        // ========== ANTI-HACK ==========
+        function triggerAntiHack(reason) {
+            setEmotion('angry');
+            document.getElementById('antiHack').classList.add('active');
+
+            const penalty = 500;
+            subtractScore(penalty, 'Phát hiện gian lận: ' + reason);
+
+            document.getElementById('hackPenalty').textContent = penalty;
+            speak(`Phát hiện gian lận! ${reason}. Bị trừ ${penalty} điểm!`, 'warning');
+
+            setTimeout(() => {
+                document.getElementById('antiHack').classList.remove('active');
+            }, 5000);
+        }
+
+        // ========== SCORE SYSTEM ==========
+        function addScore(points, reason) {
+            userScore += points;
+            localStorage.setItem('userScore', userScore);
+
+            const username = localStorage.getItem('currentUser');
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.username === username);
+            if (user) {
+                user.score = userScore;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+
+            updateStats();
+        }
+
+        function subtractScore(points, reason) {
+            userScore = Math.max(0, userScore - points);
+            localStorage.setItem('userScore', userScore);
+
+            const username = localStorage.getItem('currentUser');
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.username === username);
+            if (user) {
+                user.score = userScore;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+
+            updateStats();
+        }
+
+        // ========== SHOP ==========
+        function buyItem(item) {
+            const prices = {
+                'shield1': 50,
+                'shield7': 300,
+                'shield30': 1000,
+                'extraLife': 100
+            };
+
+            const price = prices[item];
+
+            if (userScore < price) {
+                speak('Bạn không đủ điểm!', 'warning');
+                alert('❌ Bạn không đủ điểm!');
+                return;
+            }
+
+            if (!confirm(`Mua vật phẩm này với ${price} điểm?`)) return;
+
+            subtractScore(price, 'Mua ' + item);
+
+            if (item === 'extraLife') {
+                attemptsLeft++;
+                localStorage.setItem('attemptsLeft', attemptsLeft);
+                speak('Đã m thêm lần thử!');
+            } else {
+                const shields = parseInt(item.replace('shield', ''));
+                userShields += shields;
+                localStorage.setItem('userShields', userShields);
+                speak(`Đã mua ${shields} khiên bảo hộ!`);
+            }
+
+            updateStats();
+            alert('✅ Mua thành công!');
+        }
+
+        // ========== MESSAGES ==========
+        function loadMessages() {
+            const container = document.getElementById('messagesList');
+            container.innerHTML = '';
+
+            const messages = [
+                { type: 'system', text: '📢 Chào mừng bạn đến với hệ thống!', time: 'Hệ thống' },
+                { type: 'owner', text: OWNER_QUOTES[0], time: 'Nguyễn Chí Dự' },
+                { type: 'tip', text: '💡 Mẹo: Điểm danh mỗi ngày để nhận khiên miễn phí!', time: 'Mẹo' }
+            ];
+
+            messages.forEach(msg => {
+                const div = document.createElement('div');
+                div.style.cssText = 'padding: 15px; margin-bottom: 10px; border-radius: 10px; background: rgba(255,255,255,0.05); border-left: 4px solid ' + 
+                    (msg.type === 'owner' ? '#7b2cbf' : msg.type === 'tip' ? '#00ff88' : '#00d4ff');
+                div.innerHTML = `<div style="font-weight: bold; margin-bottom: 5px;">${msg.time}</div><div>${msg.text}</div>`;
+                container.appendChild(div);
+            });
+        }
+
+        // ========== INIT ==========
+        window.onload = function() {
+            createParticles();
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            // Check if blocked
+            if (localStorage.getItem('blocked') === 'true') {
+                const unblockTime = new Date(localStorage.getItem('unblockTime'));
+                if (unblockTime > new Date()) {
+                    showBlockScreen(
+                        unblockTime,
+                        ...localStorage.getItem('blockBirthDate').split('/'),
+                        localStorage.getItem('blockAge'),
+                        localStorage.getItem('blockDays')
+                    );
+                    return;
+                } else {
+                    localStorage.removeItem('blocked');
+                    localStorage.removeItem('unblockTime');
+                }
+            }
+
+            // Check if verified
+            if (localStorage.getItem('ageVerified') === 'true') {
+                userAge = parseInt(localStorage.getItem('userAge') || '0');
+                isRestricted = localStorage.getItem('isRestricted') === 'true';
+
+                document.getElementById('ageSection').classList.add('hidden');
+
+                // Check if logged in
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    const users = JSON.parse(localStorage.getItem('users') || '[]');
+                    const user = users.find(u => u.username === savedUser);
+                    if (user) {
+                        currentUser = user;
+                        document.getElementById('authSection').classList.add('hidden');
+                        showUserPanel(user);
+                    }
+                } else {
+                    document.getElementById('authSection').classList.remove('hidden');
+                }
+            }
+
+            // ANTI-HACK: Monitor console
+            setInterval(() => {
+                const start = performance.now();
+                console.clear();
+                const end = performance.now();
+                if (end - start > 100) {
+                    triggerAntiHack('Phát hiện mở DevTools!');
+                }
+            }, 1000);
+        };
+    </script>
 </body>
 </html>
